@@ -1,10 +1,17 @@
 
-function Visualization() {
-	this.settings = [];
+function Visualization(viz_type, settings) {
+	this.viz_type = viz_type;
+	this.settings = settings;
 }
 
-function Set(name) {
+function Set(name, event_name, tech_names, start_date, end_date) {
+	
 	this.name = name;
+	this.event_name = event_name;
+	this.tech_names = tech_names;
+	this.start_date = start_date;
+	this.end_date = end_date;
+	
 	this.visualizations = [];
 	
 	this.add = function(visualization) {
@@ -36,7 +43,7 @@ function Collection(name){
 		return this.sets;
 	};
 	
-	this.add(new Set("Default Set"));
+	this.add(new Set("Default Set", "", "", "", ""));
 }
 
 function DssHandler(name, operation) {

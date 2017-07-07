@@ -39,9 +39,6 @@ $("document").ready(function(){
 	});
 	
 	$("#add_set").click(function(){
-		var manager = getCollectionManager();
-		var collection = manager.getCurrent();
-		collection.add(new Set("Default Set"));
-		manager.update();
+		$("#contents-dss-modal").load("views/AddVisualizationSetView.html");
 	});
 });
