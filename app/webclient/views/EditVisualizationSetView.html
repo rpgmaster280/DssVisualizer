@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<meta content="text/html;charset=utf-8" http-equiv="Content-Type" />
+		<script type="text/javascript" src="js/controllers/EditVisualizationSetController.js"></script>
+	</head>
+	<body>
+		<div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+		    <h4 class="modal-title" id="dssModalLabel">Edit Visualization Set</h4>
+		</div>
+		      
+		<div class="modal-body">
+			<form id = "setEditForm">
+			
+				<!-- Used for getting files from the file system -->
+				<div class="form-group">
+					<label for="set-name">Set Name</label>
+					<div class="col-10">
+						<input class="form-control" type="text" value="" id="set-name">
+					</div>
+				</div>
+			</form>
+			
+		</div>
+		
+		<div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+		    <button type="button" class="btn btn-primary" id = "submitButton">Submit</button>
+		</div>
+	</body>	
+</html>

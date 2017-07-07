@@ -14,35 +14,24 @@
 #
 # You should have received a copy of the GNU General Public License
 # along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
+import gi
 
-import subprocess
-import os
-import time
+gi.require_version("Gtk", "3.0")
+gi.require_version("WebKit", "3.0")
+from gi.repository import Gtk
+from gi.repository import WebKit
 
-class CommandLine:
+gtkWindow = Gtk.Window()
+webKitWebView = WebKit.WebView()
+gtkScrolledWindow = Gtk.ScrolledWindow()
+gtkScrolledWindow.add(webKitWebView)
+gtkWindow.add(gtkScrolledWindow)
+gtkWindow.connect("delete-event", Gtk.main_quit)
 
-    def main():
-        
-        #Start the flask web server
-        p = subprocess.Popen(["python3", os.getcwd() + "/webserver/flask_webserver.py"], 
-            stdout=subprocess.PIPE, 
-            stderr=subprocess.PIPE)
+gtkWindow.set_default_size(1200, 1000)
 
-        #Give webserver a little bit of time to start
-        time.sleep(0.25)
+uri = "http://localhost:5000/VisualizationPage.html"
+webKitWebView.load_uri(uri)
 
-        #Start the WebKit
-        import webserver.webkit_browser
-        
-        #Shutdown web server
-        subprocess.call(["kill", str(p.pid)])
-        
-        #Block until web server shuts down
-        #p.wait()
-        output, errors = p.communicate()
-        print(output.decode("utf-8"))
-        print(errors.decode("utf-8"))
-
-    if __name__ == "__main__":
-        main()
-        
+gtkWindow.show_all()
+Gtk.main()

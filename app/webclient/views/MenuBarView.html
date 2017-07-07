@@ -1,0 +1,70 @@
+<html>
+	<head>
+		<script type="text/javascript" src="js/controllers/MenuBarController.js"></script>
+	</head>
+	<body>
+	
+		<nav class = "navbar navbar-inverse" style="border-radius:0px;">
+				
+				<!-- Menu Bar Elements -->
+				<div>
+				
+					<!-- Left Menu Bar Elements -->
+					<ul class = "nav navbar-nav navbar-left">
+						<!-- File Dropdown -->
+						<li class = "dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								role="button" aria-haspopup="true" aria-expanded="false"
+								id="file_dropdown">
+								File
+							</a>
+							<ul class ="dropdown-menu scrollable-menu" id = "contents-dropdown-system">
+								<li><a href="#" id="new_workspace">New Workspace</a></li>
+								<li><a href="#" id="reset_workspace">Reset Workspace</a></li>
+								<li><a href="#" id="manage_workspace">Save Workspace</a></li>
+								<li class="divider" role="separator"></li>
+								<li><a href="#" id="settings">Settings</a></li>
+							</ul>
+						</li>
+						<!-- End Workspace Dropdown -->
+						
+						<!-- Collection Dropdown -->
+						<li class = "dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								role="button" aria-haspopup="true" aria-expanded="false"
+								id="collection_dropdown">
+								Collection
+							</a>
+							<ul class ="dropdown-menu scrollable-menu" id = "contents-dropdown-event">
+								<li><a href="#" id="new_collection">New</a></li>
+								<li><a href="#" id="edit_collection">Edit</a></li>
+								<li><a href="#" id="delete_collection">Delete</a></li>
+								<li><a href="#" id="upload_collection" data-toggle="modal" data-target="#dssModal">Upload</a></li>
+							</ul>
+						</li>
+						<!-- End Collection Dropdown -->
+						
+						<!--  Set Dropdown -->
+						<li class = "dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown"
+								role="button" aria-haspopup="true" aria-expanded="false"
+								id="set_dropdown">
+								Set
+							</a>
+							<ul class ="dropdown-menu scrollable-menu" id = "contents-dropdown-event">
+								<li><a href="#" id="add_set">Add</a></li>
+								<li><a href="#" id="expand_set">Expand All</a></li>
+								<li><a href="#" id="collapse_set">Collapse All</a></li>
+							</ul>
+						</li>
+						<!-- End Set Dropdown -->
+						
+					</ul>
+					<!-- End Left Menu Bar Elements -->
+					
+				</div>
+				<!-- End Menu Bar Elements -->
+				
+			</nav>
+	</body>
+</html>

@@ -1,0 +1,123 @@
+<!-- Copyright (C) 2016  Jamie Acosta, Jennifer Weand, Juan Soto, Mark Eby, Mark Smith, Andres Olivas
+
+This file is part of DssVisualizer.
+
+DssVisualizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+DssVisualizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DSS Visualizer</title>
+	
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.min.css">
+		<link rel="stylesheet" type="text/css" href="css/VisualizationPage.css">
+	
+		<script type="text/javascript" src="js/dependencies/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/bootstrap.min.js"></script>
+		
+		<script type="text/javascript" src="js/utilities/UniqueIDGenerator.js"></script>
+		<script type="text/javascript" src="js/utilities/CollectionManager.js"></script>
+		
+		<script type="text/javascript" src="js/controllers/VisualizationPageController.js"></script>
+	
+		<style>
+			#full {
+				height: 100%;
+				width: 100%;
+			}
+			
+			#title_row, #menu_row {
+				height: 65px;
+			}
+			
+			#main_body {
+				height: calc(100% - 150px);
+				width: 100%;
+			}
+			
+			#inner_body, #collection_selector {
+				min-height: calc(100% - 20px);
+			}
+			
+		</style>
+	</head>
+
+	<body>
+	
+		<!-- Modal -->
+		<div class="modal fade" id="dssModal" tabindex="-1" role="dialog" aria-labelledby="dssModalLabel">
+		  <div class="modal-dialog" role="document">
+		    <div class="modal-content" id = "contents-dss-modal">
+		      <!-- Contents are dynamically loaded in -->
+		    </div>
+		  </div>
+		</div>
+		<!-- End Modal -->
+	
+		<div id="full">
+		
+			<!-- Start Header -->
+			<div class = "row" id = "title_row">
+				<div class = "col-md-12" id = "header">
+					<img src= "img/ARL_logo.png" style="float:left;width:120px;height:40px;"/>
+					<h1 style="color:rgb(80, 80, 80);margin-left:150px;"><b>DSS Visualizer</b></h1>
+				</div>
+			</div> <!-- End Header -->
+			
+			<!-- Start Menu Bar -->
+			<div class = "row" id = "menu_row">
+				<div class = "col-md-12" id = "menu_bar">
+				</div>
+			</div> <!-- End Menu Bar -->
+			
+			<!-- Start Main Body -->
+			<div class = "row" id = "main_body">
+				
+				<!-- Start Inner Body -->
+				<div class = "col-md-10" id = "inner_body">
+				
+					<!-- Start Alert View -->
+					<div class = "row">
+						<div class = "col-md-12" id = "alert_panel">
+						</div>
+					</div> <!-- End Alert View -->
+					
+					<!-- Start Collection Management -->
+					<div class = "row">
+						<div class = "col-md-12" id = "collection_management">
+						</div>
+					</div> <!-- End Collection Management -->
+					
+				</div> <!-- End Inner Body -->
+				
+				<!-- Start Collection Selector -->
+				<div class = "col-md-2 panel panel-default" id = "collection_selector">
+				</div> <!-- End Collection Selector -->
+				
+			</div> <!-- End Main Body -->
+			
+			<div class = "row"> <!-- Start Footer -->
+				<div class = "col-md-12" id = "footer">
+					Code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3</a>
+				</div>
+			</div> <!-- End Footer -->
+		</div>
+
+	</body>
+
+</html>
