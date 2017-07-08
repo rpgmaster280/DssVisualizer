@@ -5,7 +5,7 @@ if (namespace["VisJS"] == null) {
 	namespace.VisJS = function VisJS(){
 		
 		this.loadDependencies = function(){
-			//alert("Loading depedencies of class 1");
+			
 			$.holdReady(true);
 			
 			$('<link>')
@@ -21,7 +21,11 @@ if (namespace["VisJS"] == null) {
 			});
 		};
 		
-		this.createInstance = function(anchor_point, data) {
+		this.getSettings = function() {
+			return {};
+		};
+		
+		this.createInstance = function(anchor_point, data, settings) {
 			alert("Do not create an instance of VisJS. This function is only for renderers");
 		};
 	};

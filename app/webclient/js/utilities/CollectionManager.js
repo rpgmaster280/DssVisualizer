@@ -18,6 +18,10 @@ function Set(name, event_name, tech_names, start_date, end_date) {
 		this.visualizations.push(visualization);
 	};
 	
+	this.getAll = function(){
+		return this.visualizations;
+	};
+	
 	this.del = function(index) {
 		delete this.visualizations[index];
 	};
@@ -37,6 +41,10 @@ function Collection(name){
 	
 	this.del = function(index) {
 		delete this.sets[index];
+	}
+	
+	this.get = function(index) {
+		return this.sets[index];
 	}
 	
 	this.getAll = function() {

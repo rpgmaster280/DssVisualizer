@@ -7,10 +7,12 @@ function updateUI(collection){
 		var sets = collection.getAll();
 		
 		for(var index in sets) {
+			
+			var set = sets[index];
 
 			var template = $(this).first().clone();
 			
-			template.find(".set-title").text(sets[index].name);
+			template.find(".set-title").text(set.name);
 			
 			var new_panel = template.find(".set-target");
 			new_panel.removeClass("set-target");
@@ -43,18 +45,36 @@ function updateUI(collection){
 				components[i].attr("id", generateUniqueID());
 			}
 			
+			var pluginManager = getPluginManager();
+			var visualizations = set.getAll();
+			
+			if(visualizations.length > 0) {
+				panel_body.html("");
+			}
+			
+			for(var i = 0; i < visualizations.length; i++) {
+				var viz = visualizations[i];
+				var renderer = pluginManager.get(viz.settings.viz_type);
+				var viz_dom = $("<div>");
+				renderer.run(viz_dom, "", viz.settings);
+				panel_body.append(viz_dom);
+			}
+			
 			collapse_button.attr("data-target", "#" + components[5].attr("id"));
 			
 			add_button.attr("data-toggle", "modal");
 			add_button.attr("data-target", "#dssModal");
-			add_button.click(sets[index], function(e){
-				var current_set = e.data;
+			add_button.click([index, set], function(e){
+				var set_index = e.data[0];
+				var current_set = e.data[1];
+				localStorage.setItem("working-set", JSON.stringify(current_set));
+				localStorage.setItem("working-set-index", set_index);
 				$("#contents-dss-modal").load("views/AddVisualizationView.html");
 			});
 			
 			edit_button.attr("data-toggle", "modal");
 			edit_button.attr("data-target", "#dssModal");
-			edit_button.click([index, sets[index]], function(e){
+			edit_button.click([index, set], function(e){
 				var set_index = e.data[0];
 				var current_set = e.data[1];
 				localStorage.setItem("working-set", JSON.stringify(current_set));

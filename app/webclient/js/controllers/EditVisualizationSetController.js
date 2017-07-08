@@ -27,6 +27,8 @@ $("document").ready(function(){
 				end_date
 		);
 		
+		new_set.visualizations = current_set.visualizations;
+		
 		collection.update(parseInt(current_set_index), new_set);
 		
 		manager.update();
