@@ -1,5 +1,9 @@
 
 $("document").ready(function(){
+	
+	$("#start_date").datepicker({dateFormat: 'yy-mm-dd'});
+	$("#end_date").datepicker({dateFormat: 'yy-mm-dd'});
+	
 	var current_set = JSON.parse(localStorage.getItem("working-set"));
 	var current_set_index = JSON.parse(localStorage.getItem("working-set-index"));
 	

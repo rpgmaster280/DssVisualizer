@@ -50,5 +50,7 @@ $("document").ready(function(){
 		var set = collection.get(current_set_index);
 		set.add(viz);
 		manager.update();
+		
+		$("#dssModal").modal('hide');
 	});
 });
