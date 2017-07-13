@@ -38,8 +38,32 @@ function Request(identifier, parameters = null) {
 
 //Below is a list of all requests in the system
 
-function SystemSelfTestRequest() {
-	Request.call(this, "TEST");
+function AddDatabaseRequest(name) {
+	var fields = {
+		"db_name" : name
+	};
+	Request.call(this, "DSS_ADD_DB", fields);
+}
+
+function RemoveDatabaseRequest(name) {
+	var fields = {
+		"db_name" : name
+	};
+	Request.call(this, "DSS_RM_DB", fields);
+}
+
+function GetAllDatabasesRequest() {
+	Request.call(this, "DSS_LS_DB", null);
+}
+
+function FileUploadRequest(db_name, tech_name, event_name, data) {
+	var fields = {
+		"db_name" : db_name,
+		"tech_name" : tech_name,
+		"event_name" : event_name,
+		"event_data" : data
+	};
+	Request.call(this, "DSS_UPLOAD_FILE", fields);
 }
 
 //End list of requests in the system
@@ -165,7 +189,7 @@ var masterConnection = new Connection();
  * This function ensures that there is only one running instance of a Connection.
  * @returns A singleton instance of a Connection.
  */
-function getConnectionSingleton() {
+function getDssConnectionSingleton() {
 	return masterConnection;
 }
 

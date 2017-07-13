@@ -6,8 +6,16 @@ function addNewCollection() {
 }
 
 $("document").ready(function(){
-      
-	$("#upload_collection").click(function(){
+    
+	$("#add_db").click(function(){
+		$("#contents-dss-modal").load("views/AddDatabaseView.html");
+	});
+	
+	$("#delete_db").click(function(){
+		$("#contents-dss-modal").load("views/DeleteDatabaseView.html");
+	});
+	
+	$("#upload_db").click(function(){
 		$("#contents-dss-modal").load("views/FileUploadView.html");
 	});
 	

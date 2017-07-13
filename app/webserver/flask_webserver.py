@@ -41,40 +41,40 @@ app = Flask(__name__)
 
 #Begin list of error messages (Change to DssResponses)
 type_not_found = """{ 
-    message: \"Type not found\",
-    success: false,
-    data: []
+    "message": "Type not found",
+    "success": false,
+    "data": []
 }"""
 request_not_found = """{ 
-    message: \"Request not understood by the system\",
-    success: false,
-    data: []
+    "message": "Request not understood by the system",
+    "success": false,
+    "data": []
 }"""
 invalid_parameters = """{ 
-    message: \"Parameters for the request are incorrect\",
-    success: false,
-    data: []
+    "message": "Parameters for the request are incorrect",
+    "success": false,
+    "data": []
 }"""
 #End list of error messages
 
 #Handles database requests from the browser
-@app.route('/data_request.php')
+@app.route('/data_request.php', methods=['POST'])
 def data_request_handler():
     
     #First, check to see if type field is set. If not return error.
-    if 'type' not in flask_request.args:
+    if 'type' not in flask_request.form:
         return Response(type_not_found, mimetype="application/json")
-    
-    if flask_request.args['type'] not in request_map:
+     
+    if flask_request.form['type'] not in request_map:
         return Response(request_not_found, mimetype="application/json")
-    
-    req = request_map[flask_request.args['type']]
-    req.setUserInput(flask_request.args)
+     
+    req = request_map[flask_request.form['type']]
+    req.setUserInput(flask_request.form)
     
     if not req.validateInput():
         return Response(invalid_parameters, mimetype="application/json")
     
-    return req.processRequest()
+    return Response(req.processRequest(), mimetype="application/json")
 
 #Finds html, js, image, and other standard resources needed for the browser
 def find_browser_files(startPoint):

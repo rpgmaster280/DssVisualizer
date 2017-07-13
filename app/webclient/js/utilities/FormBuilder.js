@@ -1,6 +1,26 @@
 
 function FormBuilder(settings){
 	this.settings = settings;
+	
+	this.generateStringField = function(id){
+		return $("<input type='text' class='form-control'>").attr('id', id).attr('name', id);
+	};
+	
+	this.generateIntegerField = function(id) {
+		return $("<input type='number' class='form-control'>").attr('id', id).attr('name', id);
+	};
+	
+	this.generateSelectField = function(id, options) {
+		var input = $("<select class='form-control'>").attr('id', id).attr('name', id);
+		
+		for(var i in options) {
+			var option = options[i];
+			var next_option = $("<option>").val(option).text(option);
+			input.append(next_option);
+		}
+		return input;
+	};
+	
 	this.constructForm = function(){
 		
 		var form = $("<div>");
@@ -14,13 +34,13 @@ function FormBuilder(settings){
 				
 			if(setting_value == "String") {
 				
-				var input = $("<input type='text' class='form-control'>").attr('id', setting_key).attr('name', setting_key);
+				var input = this.generateStringField(setting_key);
 				form_group.append(input);
 				form.append(form_group);
 				
 			} else if (setting_value == "Integer") {
 				
-				var input = $("<input type='number' class='form-control'>").attr('id', setting_key).attr('name', setting_key);
+				var input = this.generateIntegerField(setting_key);
 				form_group.append(input);
 				form.append(form_group);
 				
@@ -30,12 +50,7 @@ function FormBuilder(settings){
 				var str = setting_value.substring(start, end).replace(/\s+/g, '');
 				var tokens = str.split(",");
 				
-				var input = $("<select class='form-control'>").attr('id', setting_key).attr('name', setting_key);
-				
-				for(var i in tokens) {
-					var next_option = $("<option>").val(tokens[i]).text(tokens[i]);
-					input.append(next_option);
-				}
+				var input = this.generateSelectField(setting_key, tokens);
 				
 				form_group.append(input);
 				form.append(form_group);
