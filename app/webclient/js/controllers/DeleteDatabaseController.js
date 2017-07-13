@@ -3,7 +3,7 @@ $("document").ready(function(){
 	
 	var conn = getDssConnectionSingleton();
 	
-	conn.registerHandler(new ResponseHandler("DSS_LS_DB", true, function DisplayDatabases(response) {
+	conn.registerHandler(new ResponseHandler("DSS_LS_DB", true, function(response) {
 		
 		if(response.success) {
 			var databases = response.data;

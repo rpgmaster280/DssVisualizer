@@ -4,9 +4,10 @@ function Visualization(viz_type, settings) {
 	this.settings = settings;
 }
 
-function Set(name, event_name, tech_names, start_date, end_date) {
+function Set(name, db_name, event_name, tech_names, start_date, end_date) {
 	
 	this.name = name;
+	this.db_name = db_name;
 	this.event_name = event_name;
 	this.tech_names = tech_names;
 	this.start_date = start_date;
@@ -50,8 +51,6 @@ function Collection(name){
 	this.getAll = function() {
 		return this.sets;
 	};
-	
-	this.add(new Set("Default Set", "", "", "", ""));
 }
 
 function DssHandler(name, operation) {

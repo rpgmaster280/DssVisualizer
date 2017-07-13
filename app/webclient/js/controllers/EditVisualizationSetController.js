@@ -22,9 +22,11 @@ $("document").ready(function(){
 		var end_date = $("#end_date").val();
 		var event_name = $("#event_name").val();
 		var tech_names = $("#tech_name").val();
+		var database = $("#db_options option:selected").text();
 		
 		var new_set = new Set(
 				set_name,
+				database,
 				event_name,
 				tech_names,
 				start_date,
@@ -39,4 +41,27 @@ $("document").ready(function(){
 		
 		$("#dssModal").modal('hide');
 	});
+	
+	var conn = getDssConnectionSingleton();
+	conn.registerHandler(new ResponseHandler("DSS_LS_DB", true, function(response) {
+		
+		if(response.success) {
+			var databases = response.data;
+			var formBuilder = new FormBuilder();
+			
+			if(databases.length > 0) {
+				$("#submitButton").removeClass("disabled");
+			} else {
+				databases.push("No databases present in the system.");
+				$("#submitButton").addClass("disabled");
+			}
+			
+			var db_names = formBuilder.generateSelectField("db_name", databases);
+			$("#db_options").html("");
+			$("#db_options").append(db_names);
+			$("#db_name").val(current_set.db_name);
+		}
+		
+	}));
+	conn.sendRequest(new GetAllDatabasesRequest(), true);
 });
