@@ -33,6 +33,8 @@ $("document").ready(function(){
 				end_date
 		);
 		
+		//If the database has not changed, pass the data.
+		new_set.insertData(current_set.data);
 		new_set.visualizations = current_set.visualizations;
 		
 		collection.update(parseInt(current_set_index), new_set);
@@ -43,7 +45,8 @@ $("document").ready(function(){
 	});
 	
 	var conn = getDssConnectionSingleton();
-	conn.registerHandler(new ResponseHandler("DSS_LS_DB", true, function(response) {
+	var request = new GetAllDatabasesRequest();
+	conn.registerHandler(new ResponseHandler(request.getType(), true, function(response) {
 		
 		if(response.success) {
 			var databases = response.data;
@@ -59,10 +62,10 @@ $("document").ready(function(){
 			var db_names = formBuilder.generateSelectField("db_name", databases);
 			$("#db_options").html("");
 			$("#db_options").append(db_names);
-			db_names.chosen({width : "100%"})
 			$("#db_name").val(current_set.db_name);
+			db_names.chosen({width : "100%"});
 		}
 		
 	}));
-	conn.sendRequest(new GetAllDatabasesRequest(), true);
+	conn.sendRequest(request, true);
 });

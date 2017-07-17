@@ -12,6 +12,7 @@ function Set(name, db_name, event_name, tech_names, start_date, end_date) {
 	this.tech_names = tech_names;
 	this.start_date = start_date;
 	this.end_date = end_date;
+	this.data = {};
 	
 	this.visualizations = [];
 	
@@ -26,6 +27,10 @@ function Set(name, db_name, event_name, tech_names, start_date, end_date) {
 	this.del = function(index) {
 		delete this.visualizations[index];
 	};
+	
+	this.insertData = function(data) {
+		this.data = data;
+	}
 }
 
 function Collection(name){
@@ -42,6 +47,13 @@ function Collection(name){
 	
 	this.del = function(index) {
 		delete this.sets[index];
+		var tmp = this.sets;
+		this.sets = [];
+		for (var i in tmp) {
+			if(tmp[i] != null) {
+				this.sets.push(tmp[i]);
+			}
+		}
 	}
 	
 	this.get = function(index) {
@@ -114,18 +126,22 @@ function CollectionManager(){
 	};
 	
 	this.del = function(name){
+		
+		//Must have at least 1 collection
+		if(this.size() <= 1) {
+			return;
+		}
+		
 		if(name in this.collections) {
 			var collection = this.collections[name];
 			delete this.collections[name];
-			this._handle("del", collection);
 			
-			if(this.size() == 0) {
-				this.add(new Collection("Default Collection"));
-				this.set("Default Collection");
-			} else {
+			if(this.active_collection == name) {
 				var keys = Object.keys(this.collections);
 				this.set(keys[0]);
 			}
+			
+			this._handle("del", collection);
 		}
 	};
 	

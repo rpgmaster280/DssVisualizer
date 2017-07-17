@@ -80,6 +80,17 @@ function GetEventsRequest(db_name) {
 	Request.call(this, "DSS_GET_EVENTS", fields);
 }
 
+function GetDataRequest(db_name, tech_name, event_name, start_date, end_date) {
+	var fields = {
+		"db_name" : db_name,
+		"tech_name" : tech_name,
+		"event_name" : event_name,
+		"start_date" : start_date,
+		"end_date" : end_date
+	};
+	Request.call(this, "DSS_GET_DATA", fields);
+}
+
 //End list of requests in the system
 
 /**

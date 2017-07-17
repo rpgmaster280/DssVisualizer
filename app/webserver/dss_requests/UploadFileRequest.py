@@ -8,6 +8,7 @@ from dss_requests.IRequest import IRequest
 from pymongo.mongo_client import MongoClient
 import base64
 import json
+from datetime import datetime
 
 dss_success = """{
     "message": "File upload successful.",
@@ -80,6 +81,7 @@ class UploadFileRequest(IRequest):
         for row in event_data:
             row["tech_name"] = tech_name
             row["event_name"] = event_name
+            row["start"] = datetime.strptime(row["start"], "%Y-%m-%dT%H:%M:%S")
         
         table = self.getTable(event_data)
         db[table].insert_many(event_data)

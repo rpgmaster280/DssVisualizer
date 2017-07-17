@@ -8,11 +8,6 @@ from dss_requests.IRequest import IRequest
 from pymongo.mongo_client import MongoClient
 import json
 
-dss_success = """{
-    "message": "Database added successfully.",
-    "success": true,
-    "data": []
-}"""
 class GetEventsRequest(IRequest):
     def __init__(self, connection):
         super().__init__("DSS_GET_EVENTS", connection)

@@ -1,14 +1,17 @@
 
 function updateUI(collection){
 	
-	$("#management-contents").html("");
+	
 	$("<div>").load("views/SetView.html", function(){
 		
-		var sets = collection.getAll();
+		$("#view_placeholder").html("");
 		
+		var sets = collection.getAll();
+
 		if(sets.length == 0) {
 			var message = $("<h3 style='text-align: center;'>").text("No datasets have been added to this collection.");
-			$("#management-contents").append(message);
+			$("#view_placeholder").append(message);
+			return;
 		}
 		
 		for(var index in sets) {
@@ -46,10 +49,6 @@ function updateUI(collection){
 				panel_body
 			];
 			
-			for(var i = 0; i < components.length; i++) {
-				components[i].attr("id", generateUniqueID());
-			}
-			
 			var pluginManager = getPluginManager();
 			var visualizations = set.getAll();
 			
@@ -61,7 +60,7 @@ function updateUI(collection){
 				var viz = visualizations[i];
 				var renderer = pluginManager.get(viz.settings.viz_type);
 				var viz_dom = $("<div>");
-				renderer.run(viz_dom, "", viz.settings);
+				renderer.run(viz_dom, set.data, viz.settings);
 				panel_body.append(viz_dom);
 			}
 			
@@ -93,9 +92,10 @@ function updateUI(collection){
 				var current = getCollectionManager().getCurrent();
 				current.del(set_index);
 				panel.remove();
+				getCollectionManager().update();
 			});
 			
-			$("#management-contents").append(template);
+			$("#view_placeholder").append(template);
 		}
 	});
 }

@@ -25,25 +25,38 @@ $("document").ready(function(){
 	
 	$("#delete_collection").click(function(){
 		var name = $("#selectable .ui-selected").text();
-		getCollectionManager().del(name);
+		var manager = getCollectionManager();
+		
+		if(manager.size() <= 1) {
+			alert("Visualizer must have at least 1 collection.");
+		} else {
+			manager.del(name);
+		}
 	});
 	
 	$("#edit_collection").click(function(){
-		var old_name = $("#selectable .ui-selected").text();
-		var new_name = prompt("Please enter collection name", old_name);
-		var manager = getCollectionManager();
 		
-		if(new_name != null) {
-			if(manager.contains(new_name)) {
-				alert("Cannot give two collections the same name.");
-			} else {
-				var collection = manager.get(old_name);
-				manager.del(old_name);
-				collection.name = new_name;
-				manager.add(collection);
-				manager.set(collection.name);
+		var old_name = $("#selectable .ui-selected").text();
+		var p_gen = new PopupGenerator();
+		
+		p_gen.generateTextboxDialog("Enter new name for " + old_name, "Submit", function(new_name){
+			
+			var manager = getCollectionManager();
+			
+			if(new_name != null) {
+				if(manager.contains(new_name)) {
+					alert("Cannot give two collections the same name.");
+				} else {
+					var collection = manager.get(old_name);
+					var new_collection = jQuery.extend(true, {}, collection);
+					new_collection.name = new_name;
+					manager.add(new_collection);
+					manager.set(new_name);
+					manager.del(old_name);
+				}
 			}
-		}
+		});
+		
 	});
 	
 	$("#add_set").click(function(){
