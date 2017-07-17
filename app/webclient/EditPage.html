@@ -25,19 +25,21 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 		<link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.min.css">
 		<link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.min.css">
 		<link rel="stylesheet" type="text/css" href="css/VisualizationPage.css">
+		<link rel="stylesheet" type="text/css" href="css/chosen.min.css"> 
 	
 		<script type="text/javascript" src="js/dependencies/jquery-1.11.0.min.js"></script>
 		<script type="text/javascript" src="js/utilities/PluginManager.js"></script>
 		
 		<script type="text/javascript" src="js/dependencies/jquery-ui.min.js"></script>
 		<script type="text/javascript" src="js/dependencies/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/chosen.jquery.min.js"></script>
 		
 		<script type="text/javascript" src="js/utilities/Connection.js"></script>
 		<script type="text/javascript" src="js/utilities/AlertManager.js"></script>
 		<script type="text/javascript" src="js/utilities/UniqueIDGenerator.js"></script>
 		<script type="text/javascript" src="js/utilities/CollectionManager.js"></script>
 		<script type="text/javascript" src="js/utilities/FormBuilder.js"></script>
-		<script type="text/javascript" src="js/controllers/VisualizationPageController.js"></script>
+		<script type="text/javascript" src="js/controllers/EditPageController.js"></script>
 	
 		<style>
 			#full {
@@ -56,6 +58,10 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 			
 			#inner_body, #collection_selector {
 				min-height: calc(100% - 20px);
+			}
+			
+			#inner_body {
+				padding-left: 30px;
 			}
 			
 		</style>
@@ -78,7 +84,7 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 			<!-- Start Header -->
 			<div class = "row" id = "title_row">
 				<div class = "col-md-12" id = "header">
-					<img src= "img/ARL_logo.png" style="float:left;width:120px;height:40px;"/>
+					<img src= "img/ARL_logo.png" style="float:left;width:120px;padding-top:10px;"/>
 					<h1 style="color:rgb(80, 80, 80);margin-left:150px;"><b>DSS Visualizer</b></h1>
 				</div>
 			</div> <!-- End Header -->
@@ -103,7 +109,7 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 					
 					<!-- Start Collection Management -->
 					<div class = "row">
-						<div class = "col-md-12" id = "collection_management">
+						<div class = "col-md-12" id = "view_placeholder">
 						</div>
 					</div> <!-- End Collection Management -->
 					

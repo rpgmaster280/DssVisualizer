@@ -6,7 +6,6 @@ from flask import Response
 import os
 import sys
 import importlib
-from dss_response.DssResponse import DssResponse
 
 #Ensures working directory is where the webserver script is
 os.chdir(sys.path[0])
@@ -116,7 +115,7 @@ def get_resource():
         #Get extension and determine open flags
         extension = filelist[rule]["extension"]
         open_flags = 'r'
-        if extension == "png" or extension == "jpeg" or extension == "jpg":
+        if extension == "png" or extension == "jpeg" or extension == "jpg" or extension == "ttf" or extension == "woff" or extension == "woff2":
             open_flags = 'rb'
             
         #Open file and determine MIME type
@@ -132,8 +131,14 @@ def get_resource():
                 mtype = "image/png"
             elif extension == "jpg" or extension == "jpeg":
                 mtype = "image/jpeg"
+            elif extension == "ttf":
+                mtype = "image/ttf"
+            elif extension == "woff":
+                mtype = "image/woff"
+            elif extension == "woff2":
+                mtype = "image/woff2"
             else:
-                raise RuntimeError("Unsupported mime type")
+                mtype = "plain/text"
     
     #Return a response
     return Response(contents, mimetype=mtype)

@@ -66,6 +66,20 @@ function FileUploadRequest(db_name, tech_name, event_name, data) {
 	Request.call(this, "DSS_UPLOAD_FILE", fields);
 }
 
+function GetTechniciansRequest(db_name) {
+	var fields = {
+		"db_name" : db_name
+	};
+	Request.call(this, "DSS_GET_TECHS", fields);
+}
+
+function GetEventsRequest(db_name) {
+	var fields = {
+		"db_name" : db_name
+	};
+	Request.call(this, "DSS_GET_EVENTS", fields);
+}
+
 //End list of requests in the system
 
 /**

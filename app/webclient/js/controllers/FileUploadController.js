@@ -20,6 +20,7 @@ $("document").ready(function(){
 			var db_names = formBuilder.generateSelectField("db_name", databases);
 			$("#db_options").html("");
 			$("#db_options").append(db_names);
+			db_names.chosen({width : "100%"});
 		}
 		
 	}));

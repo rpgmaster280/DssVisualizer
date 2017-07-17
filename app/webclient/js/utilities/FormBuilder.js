@@ -10,14 +10,21 @@ function FormBuilder(settings){
 		return $("<input type='number' class='form-control'>").attr('id', id).attr('name', id);
 	};
 	
-	this.generateSelectField = function(id, options) {
-		var input = $("<select class='form-control'>").attr('id', id).attr('name', id);
+	this.generateSelectField = function(id, options, isMultiple = false) {
+		var input = null;
+		
+		if(isMultiple) {
+			input = $("<select class='chosen form-control' multiple>").attr('id', id).attr('name', id);
+		} else {
+			input = $("<select class='chosen form-control'>").attr('id', id).attr('name', id);
+		}
 		
 		for(var i in options) {
 			var option = options[i];
 			var next_option = $("<option>").val(option).text(option);
 			input.append(next_option);
 		}
+		
 		return input;
 	};
 	
@@ -59,6 +66,8 @@ function FormBuilder(settings){
 				//Form option not understood by the system
 			}
 		}
+		
+		form.find("select").chosen({width : "100%"});
 		
 		return form;
 	}

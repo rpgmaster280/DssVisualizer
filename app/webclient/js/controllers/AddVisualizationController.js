@@ -11,6 +11,7 @@ $("document").ready(function(){
 		var new_option = $("<option>").text(display_string).val(renderer.class_name);
 		$("#viz_type").append(new_option);
 	}
+	$("#viz_type").chosen({width: "100%"});
 	
 	$("#viz_type").change(function(){
 		var current_option = $("#viz_type option:selected");
@@ -27,7 +28,8 @@ $("document").ready(function(){
 		var settings = plugin.getSettings();
 		
 		var form_builder = new FormBuilder(settings);
-		$("#viz_specific").append(form_builder.constructForm());
+		var new_form = form_builder.constructForm();
+		$("#viz_specific").append(new_form);
 	});
 	
 	$("#submitButton").click(function(){

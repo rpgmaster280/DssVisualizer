@@ -7,7 +7,7 @@ function updateUI(collection){
 		var sets = collection.getAll();
 		
 		if(sets.length == 0) {
-			var message = $("<p>").text("No datasets have been added to this collection.");
+			var message = $("<h3 style='text-align: center;'>").text("No datasets have been added to this collection.");
 			$("#management-contents").append(message);
 		}
 		
