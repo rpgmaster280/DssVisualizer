@@ -71,7 +71,7 @@ $("document").ready(function(){
 				return;
 			}
 			
-			if (obj[0].keypresses_id != null) {
+			if (obj[0].keypress_id != null) {
 				$("#fileFeedback").text("Keypress data selected.");
 				if(can_enable) $("#submitButton").removeClass("disabled");
 			} else if (obj[0].clicks_id != null) {
@@ -85,6 +85,9 @@ $("document").ready(function(){
 				if(can_enable) $("#submitButton").removeClass("disabled");
 			} else if (obj[0].traffic_xy_id != null) {
 				$("#fileFeedback").text("Traffic throughput data selected.");
+				if(can_enable) $("#submitButton").removeClass("disabled");
+			} else if (obj[0].manualscreen_id != null){
+				$("#fileFeedback").text("Manual screenshot data selected.");
 				if(can_enable) $("#submitButton").removeClass("disabled");
 			} else {
 				$("#fileFeedback").text("File type not supported.");

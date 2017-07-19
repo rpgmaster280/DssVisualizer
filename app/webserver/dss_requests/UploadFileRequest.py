@@ -22,16 +22,18 @@ class UploadFileRequest(IRequest):
     def getTable(self, event_data):
         first_row = event_data[0]
             
-        if "keypresses_id" in first_row:
+        if "keypress_id" in first_row:
             return "keypresses"
         elif "clicks_id" in first_row:
             return "clicks"
         elif "timed_id" in first_row:
-            return "timed"
+            return "timed_screenshots"
         elif "traffic_all_id" in first_row:
             return "traffic"
         elif "traffic_xy_id" in first_row:
             return "traffic_throughput"
+        elif "manualscreen_id" in first_row:
+            return "manual_screenshots"
         return None
             
         

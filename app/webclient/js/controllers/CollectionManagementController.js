@@ -59,9 +59,19 @@ function updateUI(collection){
 			
 			for(var i = 0; i < visualizations.length; i++) {
 				var viz = visualizations[i];
-				var renderer = pluginManager.get(viz.settings.viz_type);
-				var viz_dom = $("<div>");
-				renderer.run(viz_dom, set.data, viz.settings);
+				var plugin_name = viz.settings.viz_type;
+				var renderer = pluginManager.get(plugin_name);
+				var viz_dom = $("<div>").css("clear", "both");
+				
+				try {
+					renderer.run(viz_dom, set.data, viz.settings);
+				} catch(e) {
+					
+					var error_text = "Error running plugin " +
+						plugin_name + " | " + e;
+					viz_dom.append($("<p>").text(error_text).css("color", "red"));
+				}
+				
 				panel_body.append(viz_dom);
 			}
 			
