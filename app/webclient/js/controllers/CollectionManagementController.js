@@ -14,6 +14,7 @@ function updateUI(collection){
 			return;
 		}
 		
+		var counter = 0;
 		for(var index in sets) {
 			
 			var set = sets[index];
@@ -64,7 +65,9 @@ function updateUI(collection){
 				panel_body.append(viz_dom);
 			}
 			
+			components[5].attr("id", "set-panel" + counter);
 			collapse_button.attr("data-target", "#" + components[5].attr("id"));
+			counter = counter + 1;
 			
 			add_button.attr("data-toggle", "modal");
 			add_button.attr("data-target", "#dssModal");

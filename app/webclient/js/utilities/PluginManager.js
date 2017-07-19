@@ -85,11 +85,13 @@ function getPluginManager() {
 	return _pluginManager;
 }
 
-var visjs = new Plugin("VisJS", "js/plugins/visjs/plugin_visjs.js", "Library", "");
-var d3 = new Plugin("D3", "js/plugins/d3/plugin_d3.js", "Library", "");
-var hello_world = new Plugin("HelloWorld", "js/plugins/visjs/renderers/plugin_hello_world.js", "Renderer", "VisJS");
+var visjs = new Plugin("VisJS", "js/plugins/visjs/plugin_visjs.js", "Library", "Standalone");
+var d3 = new Plugin("D3", "js/plugins/d3/plugin_d3.js", "Library", "Standalone");
+var banner = new Plugin("Banner", "js/plugins/utilities/plugin_banner.js", "Renderer", "Standalone");
+var table_dump = new Plugin("TableDump", "js/plugins/utilities/plugin_table_dump.js", "Renderer", "Standalone");
 _pluginManager.add(visjs);
 _pluginManager.add(d3);
-_pluginManager.add(hello_world);
+_pluginManager.add(banner);
+_pluginManager.add(table_dump);
 _pluginManager.loadAll();
 
