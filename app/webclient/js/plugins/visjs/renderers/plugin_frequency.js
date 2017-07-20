@@ -15,6 +15,14 @@ if (namespace["Frequency"] == null) {
 		this.loadDependencies = function(){
 			//Nothing to do here
 		};
+		
+		this.getType = function(){
+			return "Renderer";
+		};
+		
+		this.getDependencies = function(){
+			return "Visjs";
+		};
 
 		//Settings currently ignored because the graph currently only supports one table
 		this.getSettings = function() {

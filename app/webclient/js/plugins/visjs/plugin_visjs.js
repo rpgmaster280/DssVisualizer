@@ -1,8 +1,8 @@
 
 var namespace = getPluginNamespace();
 
-if (namespace["VisJS"] == null) {
-	namespace.VisJS = function VisJS(){
+if (namespace["Visjs"] == null) {
+	namespace.Visjs = function Visjs(){
 		
 		this.loadDependencies = function(){
 			
@@ -19,6 +19,14 @@ if (namespace["VisJS"] == null) {
 			$.getScript('js/plugins/visjs/vis.js').done(function(){
 				$.holdReady(false);
 			});
+		};
+		
+		this.getType = function(){
+			return "Library";
+		};
+		
+		this.getDependencies = function(){
+			return "Standalone";
 		};
 		
 		this.getSettings = function() {

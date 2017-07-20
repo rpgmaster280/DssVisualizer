@@ -7,7 +7,7 @@ $("document").ready(function(){
 	
 	for(var i in renderers) {
 		var renderer = renderers[i];
-		var display_string = renderer.class_name + " - " + renderer.depends_on;
+		var display_string = renderer.class_name + " - " + renderer.getDependencies();
 		var new_option = $("<option>").text(display_string).val(renderer.class_name);
 		$("#viz_type").append(new_option);
 	}

@@ -17,6 +17,14 @@ if (namespace["Banner"] == null) {
 			};
 		};
 		
+		this.getType = function(){
+			return "Renderer";
+		};
+		
+		this.getDependencies = function(){
+			return "Standalone";
+		};
+		
 		this.createInstance = function(anchor_point, data, settings) {
 			
 			var title = settings.Text[0];

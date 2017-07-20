@@ -15,6 +15,14 @@ if (namespace["Timeline"] == null) {
 			//Nothing to do here
 		};
 		
+		this.getType = function(){
+			return "Renderer";
+		};
+		
+		this.getDependencies = function(){
+			return "Visjs";
+		};
+		
 		this.getSettings = function() {
 			return {
 				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)"

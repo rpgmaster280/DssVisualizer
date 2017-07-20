@@ -55,7 +55,7 @@ class UploadFileRequest(IRequest):
         
         return True
     
-    def processRequest(self):
+    def processRequest(self, server_state_info):
         user_input = self.getUserInput()
         
         client = MongoClient("localhost", 27017)

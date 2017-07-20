@@ -5,15 +5,16 @@ function getPluginNamespace() {
 	return _plugin_namespace;
 }
 
-function Plugin(class_name, path, type, depends_on) {
+function Plugin(class_name, path) {
+	
 	this.class_name = class_name;
 	this.path = path;
-	this.type = type;
 	this.isRunning = false;
-	this.depends_on = depends_on;
 	this.enabled = true;
 	this.instance = null;
+	
 	this.load = function() {
+		
 		if(this.enabled && !this.isRunning) {
 			
 			$.holdReady(true);
@@ -29,14 +30,30 @@ function Plugin(class_name, path, type, depends_on) {
 			$.getScript(this.path).done(script_handler.bind(this));
 		}
 	};
+	
 	this.run = function(anchor_point, data, settings) {
 		if(this.enabled && this.isRunning) {
 			this.instance.createInstance(anchor_point, data, settings);
 		}
 	};
+	
 	this.getSettings = function(){
 		if(this.enabled && this.isRunning) {
 			return this.instance.getSettings();
+		}
+		return null;
+	};
+	
+	this.getType = function(){
+		if(this.enabled && this.isRunning) {
+			return this.instance.getType();
+		}
+		return null;
+	};
+	
+	this.getDependencies = function(){
+		if(this.enabled && this.isRunning) {
+			return this.instance.getDependencies();
 		}
 		return null;
 	};
@@ -69,7 +86,7 @@ function PluginManager() {
 		var list_to_return = [];
 		
 		for(var i in this.plugins) {
-			if (this.plugins[i].type == "Renderer" &&
+			if (this.plugins[i].getType() == "Renderer" &&
 					this.plugins[i].enabled &&
 					this.plugins[i].isRunning) {
 				list_to_return.push(this.plugins[i]);
@@ -85,20 +102,18 @@ function getPluginManager() {
 	return _pluginManager;
 }
 
-var visjs = new Plugin("VisJS", "js/plugins/visjs/plugin_visjs.js", "Library", "Standalone");
-var d3 = new Plugin("D3", "js/plugins/d3/plugin_d3.js", "Library", "Standalone");
+var connection = getDssConnectionSingleton();
 
-var banner = new Plugin("Banner", "js/plugins/utilities/plugin_banner.js", "Renderer", "Standalone");
-var table_dump = new Plugin("TableDump", "js/plugins/utilities/plugin_table_dump.js", "Renderer", "Standalone");
-var timeline = new Plugin("Timeline", "js/plugins/visjs/renderers/plugin_timeline.js", "Renderer", "VisJS");
-var frequency = new Plugin("Frequency", "js/plugins/visjs/renderers/plugin_frequency.js", "Renderer", "VisJS");
+//Sync request is required here.
+var response = connection.sendRequest(new GetAllPluginsRequest(), false);
 
-_pluginManager.add(visjs);
-_pluginManager.add(d3);
-_pluginManager.add(banner);
-_pluginManager.add(table_dump);
-_pluginManager.add(timeline);
-_pluginManager.add(frequency);
-
+if(response.success) {
+	for(var i in response.data) {
+		var plugin_name = response.data[i]["class_name"];
+		var path = response.data[i]["path"];
+		var plugin = new Plugin(plugin_name, path);
+		_pluginManager.add(plugin);
+	}
+}
 _pluginManager.loadAll();
 

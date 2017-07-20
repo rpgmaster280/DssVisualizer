@@ -15,7 +15,7 @@ class GetDatabasesRequest(IRequest):
     def validateInput(self):
         return True
     
-    def processRequest(self):
+    def processRequest(self, server_state_info):
         
         client = MongoClient("localhost", 27017)
         

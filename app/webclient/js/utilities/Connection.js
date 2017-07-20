@@ -91,6 +91,9 @@ function GetDataRequest(db_name, tech_name, event_name, start_date, end_date) {
 	Request.call(this, "DSS_GET_DATA", fields);
 }
 
+function GetAllPluginsRequest() {
+	Request.call(this, "DSS_GET_PLUGINS", {});
+}
 //End list of requests in the system
 
 /**

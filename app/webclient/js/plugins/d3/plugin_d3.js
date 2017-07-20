@@ -13,6 +13,14 @@ if (namespace["D3"] == null) {
 			});
 		};
 		
+		this.getType = function(){
+			return "Library";
+		};
+		
+		this.getDependencies = function(){
+			return "Standalone";
+		};
+		
 		this.getSettings = function() {
 			return {};
 		};

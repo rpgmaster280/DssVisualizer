@@ -16,7 +16,7 @@ class IRequest:
     def validateInput(self):
         raise RuntimeWarning("Method not implemented")
     
-    def processRequest(self):
+    def processRequest(self, server_state_info):
         raise RuntimeWarning("Method not implemented")
     
     def changeConnection(self, new_connection):

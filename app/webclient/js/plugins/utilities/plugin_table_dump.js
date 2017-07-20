@@ -8,6 +8,14 @@ if (namespace["TableDump"] == null) {
 			//Nothing to do here
 		};
 		
+		this.getType = function(){
+			return "Renderer";
+		};
+		
+		this.getDependencies = function(){
+			return "Standalone";
+		};
+		
 		this.getSettings = function() {
 			return {};
 		};

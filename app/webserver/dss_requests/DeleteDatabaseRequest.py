@@ -21,7 +21,7 @@ class DeleteDatabaseRequest(IRequest):
         user_input = self.getUserInput()
         return user_input["db_name"]
     
-    def processRequest(self):
+    def processRequest(self, server_state_info):
         user_input = self.getUserInput()
         client = MongoClient("localhost", 27017)
         database_name = user_input["db_name"]

@@ -73,7 +73,10 @@ def data_request_handler():
     if not req.validateInput():
         return Response(invalid_parameters, mimetype="application/json")
     
-    return Response(req.processRequest(), mimetype="application/json")
+    server_info = {
+        "static_content": filelist
+    }
+    return Response(req.processRequest(server_info), mimetype="application/json")
 
 #Finds html, js, image, and other standard resources needed for the browser
 def find_browser_files(startPoint):
@@ -89,13 +92,14 @@ def find_browser_files(startPoint):
             
             #Create dictionary for file entry and populate fields
             resource_map[rule] = {}
+            resource_map[rule]["name"] = filename
             resource_map[rule]["absolute_path"] = file_loc
             resource_map[rule]["relative_path"] = rule
             
             #Tokenize file path in order to determine extension
             file_tokens = file_loc.split(".")
             
-            #Get the extension of the file (if present
+            #Get the extension of the file (if present)
             if not file_tokens[-1]:
                 resource_map[rule]["extension"] = "None"
             else:

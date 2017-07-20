@@ -25,7 +25,8 @@ class GetDataRequest(IRequest):
     def validateInput(self):
         return True
     
-    def processRequest(self):
+    def processRequest(self, server_state_info):
+        
         user_input = self.getUserInput()
         
         tech_name = user_input["tech_name"]
