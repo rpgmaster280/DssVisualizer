@@ -65,6 +65,8 @@ class GetDataRequest(IRequest):
                 cursor = db[collection].find(query)
                 datasets_to_return[collection] = []
                 for document in cursor:
+                    # convert from datetime object -> String in YYYY-MM-DD hh:mm:ss format
+                    document["start"] = document["start"].strftime('%Y-%m-%d %H:%M:%S')
                     datasets_to_return[collection].append(document)
         
         response = {

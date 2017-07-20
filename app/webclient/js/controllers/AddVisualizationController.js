@@ -43,7 +43,12 @@ $("document").ready(function(){
 		
 		for(var i in settings) {
 			var setting = settings[i];
-			settings_as_map[setting.name] = setting.value;
+			
+			if(settings_as_map[setting.name] == null) {
+				settings_as_map[setting.name] = [];
+			}
+			
+			settings_as_map[setting.name].push(setting.value);
 		}
 		
 		var viz = new Visualization(settings_as_map.viz_type, settings_as_map);

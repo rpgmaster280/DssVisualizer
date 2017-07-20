@@ -51,13 +51,14 @@ function FormBuilder(settings){
 				form_group.append(input);
 				form.append(form_group);
 				
-			} else if (setting_value.startsWith("Options")) {
+			} else if (setting_value.startsWith("Options") || setting_value.startsWith("MultiOptions")) {
 				var start = setting_value.indexOf("(") + 1;
 				var end = setting_value.indexOf(")");
 				var str = setting_value.substring(start, end).replace(/\s+/g, '');
 				var tokens = str.split(",");
 				
-				var input = this.generateSelectField(setting_key, tokens);
+				var is_multi = setting_value.startsWith("MultiOptions");
+				var input = this.generateSelectField(setting_key, tokens, is_multi);
 				
 				form_group.append(input);
 				form.append(form_group);

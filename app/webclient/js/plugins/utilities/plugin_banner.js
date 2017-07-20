@@ -19,10 +19,10 @@ if (namespace["Banner"] == null) {
 		
 		this.createInstance = function(anchor_point, data, settings) {
 			
-			var title = settings.Text;
-			var size = settings.Size;
-			var color = settings.Color;
-			var align = settings.Align;
+			var title = settings.Text[0];
+			var size = settings.Size[0];
+			var color = settings.Color[0];
+			var align = settings.Align[0];
 			
 			var banner = null;
 			

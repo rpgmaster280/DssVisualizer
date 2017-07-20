@@ -14,14 +14,19 @@ if (namespace["TableDump"] == null) {
 		
 		this.createInstance = function(anchor_point, data, settings) {
 			
+			var textarea = $("<textarea>").attr("rows", 30).css("overflow-y", "auto").css("width", "100%");
+			
 			for(var i in data) {
-				anchor_point.append($("<h1>").text("Table - " + i));
+				var table_name = "Table - " + i;
+				textarea.text(textarea.text() + table_name + "\n\n");
 				for(var j in data[i]) {
-					anchor_point.append($("<p>").text(JSON.stringify(data[i][j])));
+					var row = data[i][j];
+					textarea.text(textarea.text() + JSON.stringify(row) + "\n");
 				}
+				textarea.text(textarea.text() + "\n");
 			}
 			
-			
+			anchor_point.append(textarea);	
 		};
 	};
 }
