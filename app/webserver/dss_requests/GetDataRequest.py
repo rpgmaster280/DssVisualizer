@@ -45,7 +45,10 @@ class GetDataRequest(IRequest):
         query = {
             "tech_name" : tech_name, 
             "event_name" : event_name,
-            "start" : {'$lt' : end_date, '$gte' : start_date}
+            "$or" : [
+                {"start" : {'$lt' : end_date, '$gte' : start_date}},
+                {"x" : {'$lt' : end_date, '$gte' : start_date}}
+            ]
         }
         
         if not tech_name:
@@ -66,7 +69,10 @@ class GetDataRequest(IRequest):
                 datasets_to_return[collection] = []
                 for document in cursor:
                     # convert from datetime object -> String in YYYY-MM-DD hh:mm:ss format
-                    document["start"] = document["start"].strftime('%Y-%m-%d %H:%M:%S')
+                    if "start" in document:
+                        document["start"] = document["start"].strftime('%Y-%m-%d %H:%M:%S')
+                    elif "x" in document:
+                        document["x"] = document["x"].strftime('%Y-%m-%d %H:%M:%S')
                     datasets_to_return[collection].append(document)
         
         response = {

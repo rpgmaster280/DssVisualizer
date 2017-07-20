@@ -91,12 +91,14 @@ var d3 = new Plugin("D3", "js/plugins/d3/plugin_d3.js", "Library", "Standalone")
 var banner = new Plugin("Banner", "js/plugins/utilities/plugin_banner.js", "Renderer", "Standalone");
 var table_dump = new Plugin("TableDump", "js/plugins/utilities/plugin_table_dump.js", "Renderer", "Standalone");
 var timeline = new Plugin("Timeline", "js/plugins/visjs/renderers/plugin_timeline.js", "Renderer", "VisJS");
+var frequency = new Plugin("Frequency", "js/plugins/visjs/renderers/plugin_frequency.js", "Renderer", "VisJS");
 
 _pluginManager.add(visjs);
 _pluginManager.add(d3);
 _pluginManager.add(banner);
 _pluginManager.add(table_dump);
 _pluginManager.add(timeline);
+_pluginManager.add(frequency);
 
 _pluginManager.loadAll();
 

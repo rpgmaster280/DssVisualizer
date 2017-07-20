@@ -17,7 +17,7 @@ if (namespace["Timeline"] == null) {
 		
 		this.getSettings = function() {
 			return {
-				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)", 
+				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)"
 			};
 		};
 		

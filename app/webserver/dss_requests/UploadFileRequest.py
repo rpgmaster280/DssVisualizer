@@ -83,7 +83,10 @@ class UploadFileRequest(IRequest):
         for row in event_data:
             row["tech_name"] = tech_name
             row["event_name"] = event_name
-            row["start"] = datetime.strptime(row["start"], "%Y-%m-%dT%H:%M:%S")
+            if "start" in row:
+                row["start"] = datetime.strptime(row["start"], "%Y-%m-%dT%H:%M:%S")
+            elif "x" in row:
+                row["x"] = datetime.strptime(row["x"], "%Y-%m-%dT%H:%M:%S")
         
         table = self.getTable(event_data)
         db[table].insert_many(event_data)
