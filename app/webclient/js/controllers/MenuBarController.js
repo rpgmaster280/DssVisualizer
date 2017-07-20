@@ -62,4 +62,13 @@ $("document").ready(function(){
 	$("#add_set").click(function(){
 		$("#contents-dss-modal").load("views/AddVisualizationSetView.html");
 	});
+	
+	$("#expand_set").click(function(){
+		$("#view_placeholder .collapse").collapse('show');
+	});
+	
+	$("#collapse_set").click(function(){
+		$("#view_placeholder .collapse").collapse('hide');
+	});
+	
 });
