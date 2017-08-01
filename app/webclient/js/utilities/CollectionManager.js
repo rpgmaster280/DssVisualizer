@@ -30,7 +30,11 @@ function Set(name, db_name, event_name, tech_names, start_date, end_date) {
 	
 	this.insertData = function(data) {
 		this.data = data;
-	}
+	};
+	
+	this.size = function() {
+		return this.data.length;
+	};
 }
 
 function Collection(name){
@@ -63,6 +67,10 @@ function Collection(name){
 	this.getAll = function() {
 		return this.sets;
 	};
+	
+	this.size = function() {
+		return this.sets.length;
+	}
 }
 
 function DssHandler(name, operation) {

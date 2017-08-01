@@ -1,7 +1,6 @@
 
 function JSONDatetoMillis(date){
 	var theDate = date.split(/-|:| /);
-	
 	var d = new Date(theDate[0],theDate[1]-1,theDate[2],theDate[3],theDate[4],theDate[5]);
 	return d.getTime();
 }
@@ -25,11 +24,12 @@ if (namespace["Timeline"] == null) {
 		
 		this.getSettings = function() {
 			return {
-				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)"
+				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)",
+				"SyncKey": "String"
 			};
 		};
 		
-		this.createInstance = function(anchor_point, data, settings) {
+		this.createInstance = function(anchor_point, data, settings, context) {
 			
 			if(settings["Sources"] == null) {
 				throw "No data sources were selected";
@@ -98,7 +98,26 @@ if (namespace["Timeline"] == null) {
 			};
 
 			// Create a Timeline
-			anchor_point.data("timeline", new vis.Timeline(container, items, groups, options));
+			var graph = new vis.Timeline(container, items, groups, options);
+			anchor_point.data("timeline", graph);
+			
+			if(settings.SyncKey != null && settings.SyncKey != "") {
+				var table = context.collection_name;
+				var synchronizer = getGraphSynchronizer();
+				synchronizer.add_graph(table, settings.SyncKey, graph);
+				graph.on("rangechanged", function(properties){
+					var windowRangeStart = properties.start;
+					var windowRangeEnd = properties.end;
+					var synchronizer = getGraphSynchronizer();
+					var graphs = synchronizer.get_graphs(table, this.key);
+					
+					for (var i in graphs) {
+						var graph = graphs[i];
+						graph.setWindow(windowRangeStart,windowRangeEnd);
+					}
+				}.bind({"key" : settings.SyncKey}));
+			}
+			
 		};
 	};
 }

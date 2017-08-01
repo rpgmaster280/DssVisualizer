@@ -4,8 +4,11 @@ $("document").ready(function(){
 	$("#start_date").datepicker({dateFormat: 'yy-mm-dd'});
 	$("#end_date").datepicker({dateFormat: 'yy-mm-dd'});
 	
-	var current_set = JSON.parse(localStorage.getItem("working-set"));
+	var conn = getDssConnectionSingleton();
+	var manager = getCollectionManager();
+	var collection = manager.getCurrent();
 	var current_set_index = JSON.parse(localStorage.getItem("working-set-index"));
+	var current_set = collection.get(current_set_index);
 	
 	$("#set_name").val(current_set.name);
 	$("#start_date").val(current_set.start_date);
@@ -14,8 +17,6 @@ $("document").ready(function(){
 	$("#tech_name").val(current_set.tech_names);
 	
 	$("#submitButton").click(function(){
-		var manager = getCollectionManager();
-		var collection = manager.getCurrent();
 		
 		var set_name = $("#set_name").val();
 		var start_date = $("#start_date").val();
@@ -34,17 +35,33 @@ $("document").ready(function(){
 		);
 		
 		//If the database has not changed, pass the data.
-		new_set.insertData(current_set.data);
-		new_set.visualizations = current_set.visualizations;
-		
-		collection.update(parseInt(current_set_index), new_set);
-		
-		manager.update();
+		if(database == current_set.db_name) {
+			
+			new_set.insertData(current_set.data);
+			new_set.visualizations = current_set.visualizations;
+			collection.update(parseInt(current_set_index), new_set);
+			manager.update();
+			
+		//Else we need to re-query the database for new data.
+		} else {
+			
+			var request = new GetDataRequest(database, tech_names, event_name, start_date, end_date);
+			conn.registerHandler(new ResponseHandler(request.getType(), true, function(response) {
+				
+				if(response.success) {
+					new_set.insertData(response.data);
+					new_set.visualizations = current_set.visualizations;
+					collection.update(parseInt(current_set_index), new_set);
+					manager.update();
+				}
+				
+			}));
+			conn.sendRequest(request, true);
+		}
 		
 		$("#dssModal").modal('hide');
 	});
 	
-	var conn = getDssConnectionSingleton();
 	var request = new GetAllDatabasesRequest();
 	conn.registerHandler(new ResponseHandler(request.getType(), true, function(response) {
 		

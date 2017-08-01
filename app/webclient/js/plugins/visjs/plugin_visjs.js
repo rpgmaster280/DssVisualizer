@@ -33,7 +33,7 @@ if (namespace["Visjs"] == null) {
 			return {};
 		};
 		
-		this.createInstance = function(anchor_point, data, settings) {
+		this.createInstance = function(anchor_point, data, settings, context) {
 			alert("Do not create an instance of VisJS. This function is only for renderers");
 		};
 	};

@@ -25,7 +25,7 @@ if (namespace["Banner"] == null) {
 			return "Standalone";
 		};
 		
-		this.createInstance = function(anchor_point, data, settings) {
+		this.createInstance = function(anchor_point, data, settings, context) {
 			
 			var title = settings.Text[0];
 			var size = settings.Size[0];

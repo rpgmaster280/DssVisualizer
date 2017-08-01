@@ -31,9 +31,9 @@ function Plugin(class_name, path) {
 		}
 	};
 	
-	this.run = function(anchor_point, data, settings) {
+	this.run = function(anchor_point, data, settings, context) {
 		if(this.enabled && this.isRunning) {
-			this.instance.createInstance(anchor_point, data, settings);
+			this.instance.createInstance(anchor_point, data, settings, context);
 		}
 	};
 	

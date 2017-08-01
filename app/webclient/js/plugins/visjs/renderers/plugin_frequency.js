@@ -2,7 +2,6 @@
 
 function JSONDatetoMillis(date){
 	var theDate = date.split(/-|:| /);
-	
 	var d = new Date(theDate[0],theDate[1]-1,theDate[2],theDate[3],theDate[4],theDate[5]);
 	return d.getTime();
 }
@@ -27,11 +26,12 @@ if (namespace["Frequency"] == null) {
 		//Settings currently ignored because the graph currently only supports one table
 		this.getSettings = function() {
 			return {
-				"Sources": "Options(Traffic Throughput)"
+				"Sources": "Options(Traffic Throughput)",
+				"SyncKey" : "String"
 			};
 		};
 		
-		this.createInstance = function(anchor_point, data, settings) {
+		this.createInstance = function(anchor_point, data, settings, context) {
 			
 			var container = anchor_point.get(0);
 			var throughput_data = data["traffic_throughput"];
@@ -62,7 +62,25 @@ if (namespace["Frequency"] == null) {
 			};
 			
 			// Create a frequency graph
-			anchor_point.data("frequency", new vis.Graph2d(container, dataset, options));
+			var graph = new vis.Graph2d(container, dataset, options);
+			anchor_point.data("frequency", graph);
+			
+			if(settings.SyncKey != null && settings.SyncKey != "") {
+				var table = context.collection_name;
+				var synchronizer = getGraphSynchronizer();
+				synchronizer.add_graph(table, settings.SyncKey, graph);
+				graph.on("rangechanged", function(properties){
+					var windowRangeStart = properties.start;
+					var windowRangeEnd = properties.end;
+					var synchronizer = getGraphSynchronizer();
+					var graphs = synchronizer.get_graphs(table, this.key);
+					
+					for (var i in graphs) {
+						var graph = graphs[i];
+						graph.setWindow(windowRangeStart,windowRangeEnd);
+					}
+				}.bind({"key" : settings.SyncKey}));
+			}
 		};
 	}
 }

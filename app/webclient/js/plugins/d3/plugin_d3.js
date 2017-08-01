@@ -25,7 +25,7 @@ if (namespace["D3"] == null) {
 			return {};
 		};
 		
-		this.createInstance = function(anchor_point, data, settings) {
+		this.createInstance = function(anchor_point, data, settings, context) {
 			alert("Do not create an instance of D3. This function is only for renderers");
 		};
 	};

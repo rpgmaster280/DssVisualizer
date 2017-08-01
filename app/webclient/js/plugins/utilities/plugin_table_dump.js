@@ -20,7 +20,7 @@ if (namespace["TableDump"] == null) {
 			return {};
 		};
 		
-		this.createInstance = function(anchor_point, data, settings) {
+		this.createInstance = function(anchor_point, data, settings, context) {
 			
 			var textarea = $("<textarea>").attr("rows", 30).css("overflow-y", "auto").css("width", "100%");
 			

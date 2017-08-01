@@ -2,6 +2,11 @@
 var _dom_table = {};
 var _last_collection = null;
 
+function generateNoDatasetMessage(target) {
+	var message = $("<h3 style='text-align: center;'>").text("No datasets have been added to this collection.");
+	target.append(message);
+}
+
 function updateUI(collection){
 	
 	$("<div>").load("views/SetView.html", function(){
@@ -14,9 +19,8 @@ function updateUI(collection){
 
 		if(sets.length == 0) {
 			
-			var message = $("<h3 style='text-align: center;'>").text("No datasets have been added to this collection.");
-			collection_markup.append(message);
-
+			generateNoDatasetMessage(collection_markup);
+			
 		} else {
 			var counter = 0;
 			for(var index in sets) {
@@ -67,8 +71,13 @@ function updateUI(collection){
 					var renderer = pluginManager.get(plugin_name);
 					var viz_dom = $("<div>").css("clear", "both");
 					
+					var context = {
+							"collection_name" : collection.name,
+							"database_name" : set.db_name
+					};
+					
 					try {
-						renderer.run(viz_dom, set.data, viz.settings);
+						renderer.run(viz_dom, set.data, viz.settings, context);
 					} catch(e) {
 						
 						var error_text = "Error running plugin " +
@@ -85,20 +94,16 @@ function updateUI(collection){
 				
 				add_button.attr("data-toggle", "modal");
 				add_button.attr("data-target", "#dssModal");
-				add_button.click([index, set], function(e){
+				add_button.click([index], function(e){
 					var set_index = e.data[0];
-					var current_set = e.data[1];
-					localStorage.setItem("working-set", JSON.stringify(current_set));
 					localStorage.setItem("working-set-index", set_index);
 					$("#contents-dss-modal").load("views/AddVisualizationView.html");
 				});
 				
 				edit_button.attr("data-toggle", "modal");
 				edit_button.attr("data-target", "#dssModal");
-				edit_button.click([index, set], function(e){
+				edit_button.click([index], function(e){
 					var set_index = e.data[0];
-					var current_set = e.data[1];
-					localStorage.setItem("working-set", JSON.stringify(current_set));
 					localStorage.setItem("working-set-index", set_index);
 					$("#contents-dss-modal").load("views/EditVisualizationSetView.html");
 				});
@@ -106,9 +111,11 @@ function updateUI(collection){
 				delete_button.click([index, new_panel], function(e){
 					var set_index = e.data[0];
 					var panel = e.data[1];
-					var current = getCollectionManager().getCurrent();
+					var manager = getCollectionManager();
+					var current = manager.getCurrent();
 					current.del(set_index);
 					panel.remove();
+					manager.update();
 				});
 				
 				collection_markup.append(template);

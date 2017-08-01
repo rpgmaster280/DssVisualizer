@@ -2,7 +2,6 @@
 $("document").ready(function(){
 	var pluginManager = getPluginManager();
 	var renderers = pluginManager.getActiveRenderers();
-	var current_set = JSON.parse(localStorage.getItem("working-set"));
 	var current_set_index = JSON.parse(localStorage.getItem("working-set-index"));
 	
 	for(var i in renderers) {
