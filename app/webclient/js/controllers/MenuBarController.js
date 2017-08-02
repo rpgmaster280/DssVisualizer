@@ -71,4 +71,44 @@ $("document").ready(function(){
 		$("#view_placeholder .collapse").collapse('hide');
 	});
 	
+	$("#reset_workspace").click(function(){
+		getCollectionManager().reset();
+	});
+	
+	$("#save_workspace").click(function(){
+		var workspace_serialized = getCollectionManager().serialize();
+		var filename = "dss_workspace.json";
+		var blob = new Blob([workspace_serialized], {type: "application/json;charset=utf-8"});
+		saveAs(blob, filename);
+	});
+	
+	$('#load_workspace').click(function(){
+		$("#loaded_workspace").click();
+	});
+	
+	$("#loaded_workspace").change(function(){
+
+		var file = $(this).get(0).files[0];
+		
+		var reader = new FileReader();
+		
+		reader.onload = function(e) {
+			
+			var obj = null;
+			
+			try {
+				obj = JSON.parse(reader.result);
+			} catch (e) {
+				alert("File selected is not vaild.");
+				return;
+			}
+			
+			getCollectionManager().loadFromJSON(obj);
+			getCollectionManager().save();
+		};
+
+		reader.readAsText(file);
+
+	});
 });
+

@@ -1,7 +1,25 @@
 
+
+function to_title(label) {
+	 
+	if(label == "layer_2") {
+		return "Data Link Layer Traffic Frequency"
+	} else if(label == "layer_3") {
+		return "Network Layer Traffic Frequency"
+	} else if(label == "layer_4") {
+		return "Transport Layer Traffic Frequency"
+	} else if(label == "layer_5") {
+		return "Application Layer Traffic Frequency"
+	}
+}
+
 function compute_categories(traffic){
 	
-	var counts = {};
+	var counts = {
+			"layer_3" : {},
+			"layer_4" : {},
+			"layer_5" : {}
+	};
 	
 	for(var i in traffic) {
 		var row = traffic[i].title;
@@ -9,17 +27,27 @@ function compute_categories(traffic){
 		
 		for(var j in tokenized){
 			var layers = tokenized[j].split(" ")[0].split(":");
-			//var layer_3 = layers[2];
-			var layer_4 = layers[3];
 			
-			if(layer_4 == undefined) {
-				continue;
+			var layer_3 = layers[2];
+			var layer_4 = layers[3];
+			var layer_5 = layers[4];
+			
+			var layers = {
+					"layer_3" : layer_3,
+					"layer_4" : layer_4,
+					"layer_5" : layer_5
 			}
 			
-			if(counts[layer_4] == null) {
-				counts[layer_4] = 1;
-			} else {
-				counts[layer_4] = counts[layer_4] + 1;
+			for(var layer in layers) {
+				var layer_value = layers[layer];
+				
+				if(layer_value != undefined) {
+					if(counts[layer][layer_value] == null) {
+						counts[layer][layer_value] = 1;
+					} else {
+						counts[layer][layer_value] = counts[layer][layer_value] + 1;
+					}
+				}
 			}
 		}
 	}
@@ -53,16 +81,18 @@ if (namespace["Piechart"] == null) {
 
 		this.getSettings = function() {
 			return {
-				"Title" : "String",
-				"SubTitle": "String",
-				"Type": "Options(Layer 4 Traffic)"
+				"Type": "MultiOptions(layer_3,layer_4,layer_5)"
 			};
 		};
 		
 		this.createInstance = function(anchor_point, data, settings, context) {
 			
 			var computed_categories = compute_categories(data["traffic"]);
-			var processed_categories = [];
+			var processed_categories = {
+					"layer_3" : [],
+					"layer_4" : [],
+					"layer_5" : []
+			};
 			
 			var color_wheel = [
 				"#2484c1",
@@ -96,90 +126,88 @@ if (namespace["Piechart"] == null) {
 			];
 			var color_counter = 0;
 			
-			for(var category in computed_categories) {
-				var category_count = computed_categories[category];
-				processed_categories.push({
-					"label" : category,
-					"value" : category_count,
-					"color" : color_wheel[color_counter]
-				});
-				color_counter = (color_counter + 1) % color_wheel.length;
+			for(var layer in computed_categories) {
+				var category_counts = computed_categories[layer];
+				
+				for(var category in category_counts) {
+					var category_count = category_counts[category];
+					processed_categories[layer].push({
+						"label" : category,
+						"value" : category_count,
+						"color" : color_wheel[color_counter]
+					});
+					color_counter = (color_counter + 1) % color_wheel.length;
+				}
 			}
 			
-			anchor_point.css("width", "40%").css("margin", "auto");
-			
-			var container = anchor_point.get(0);
-			
-			var pie = new d3pie(container, {
-				"header": {
-					"title": {
-						"text": settings.Title,
-						"fontSize": 24,
-						"font": "open sans"
+			for(var type_index in settings.Type) {
+				var type = settings.Type[type_index];
+				
+				var pie = new d3pie(anchor_point.get(0), {
+					"header": {
+						"title": {
+							"text": to_title(type),
+							"fontSize": 24,
+							"font": "open sans"
+						}
 					},
-					"subtitle": {
-						"text": settings.SubTitle,
+					"footer": {
 						"color": "#999999",
-						"fontSize": 12,
-						"font": "open sans"
+						"fontSize": 10,
+						"font": "open sans",
+						"location": "bottom-left"
 					},
-					"titleSubtitlePadding": 9
-				},
-				"footer": {
-					"color": "#999999",
-					"fontSize": 10,
-					"font": "open sans",
-					"location": "bottom-left"
-				},
-				"size": {
-					"canvasWidth": 590,
-					"pieOuterRadius": "90%"
-				},
-				"data": {
-					"sortOrder": "value-desc",
-					"content": processed_categories
-				},
-				"labels": {
-					"outer": {
-						"pieDistance": 32
+					"size": {
+						"canvasWidth": 550,
+						"pieOuterRadius": "90%"
 					},
-					"inner": {
-						"hideWhenLessThanPercentage": 3
+					"data": {
+						"sortOrder": "value-desc",
+						"content": processed_categories[type]
 					},
-					"mainLabel": {
-						"fontSize": 11
+					"labels": {
+						"outer": {
+							"pieDistance": 32
+						},
+						"inner": {
+							"hideWhenLessThanPercentage": 3
+						},
+						"mainLabel": {
+							"fontSize": 11
+						},
+						"percentage": {
+							"color": "#ffffff",
+							"decimalPlaces": 0
+						},
+						"value": {
+							"color": "#adadad",
+							"fontSize": 11
+						},
+						"lines": {
+							"enabled": true
+						},
+						"truncation": {
+							"enabled": true
+						}
 					},
-					"percentage": {
-						"color": "#ffffff",
-						"decimalPlaces": 0
+					"effects": {
+						"pullOutSegmentOnClick": {
+							"effect": "linear",
+							"speed": 400,
+							"size": 8
+						}
 					},
-					"value": {
-						"color": "#adadad",
-						"fontSize": 11
-					},
-					"lines": {
-						"enabled": true
-					},
-					"truncation": {
-						"enabled": true
+					"misc": {
+						"gradient": {
+							"enabled": true,
+							"percentage": 100
+						}
 					}
-				},
-				"effects": {
-					"pullOutSegmentOnClick": {
-						"effect": "linear",
-						"speed": 400,
-						"size": 8
-					}
-				},
-				"misc": {
-					"gradient": {
-						"enabled": true,
-						"percentage": 100
-					}
-				}
-			});
-			
-			anchor_point.data("piechart", pie);
+				});
+				
+				anchor_point.data("piechart-" + type, pie);
+
+			}
 		}
 	}
 }

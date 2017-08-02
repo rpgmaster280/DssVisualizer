@@ -25,7 +25,6 @@ $("document").ready(function(){
 	manager.load();
 	
 	if(manager.size() == 0){
-		manager.add(new Collection("Default Collection"));
-		manager.set("Default Collection");
+		manager.reset();
 	}
 });

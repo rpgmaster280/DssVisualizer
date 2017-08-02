@@ -139,34 +139,8 @@ function CollectionManager(){
 		}
 	};
 	
-	//Complex because query information cannot be saved to disk (too much memory).
-	//Need to create the structure without saving any database information.
 	this.save = function() {
-		var cloned_manager = new CollectionManager();
-		cloned_manager.active_collection = this.active_collection;
-		for(var i in this.collections) {
-			var old_collection = this.collections[i];
-			var new_collection = new Collection(old_collection.name);
-			
-			for(var j in old_collection.sets) {
-				var old_set = old_collection.sets[j];
-				var new_set = new Set(
-						old_set.name,
-						old_set.db_name,
-						old_set.event_name,
-						old_set.tech_names,
-						old_set.start_date,
-						old_set.end_date
-				);
-				new_set.visualizations = old_set.visualizations;
-				new_collection.add(new_set);
-			}
-			
-			cloned_manager.add(new_collection);
-		}
-		
-		var dataset_as_string = JSON.stringify(cloned_manager);
-		localStorage.setItem("temporary-workspace", dataset_as_string);
+		localStorage.setItem("temporary-workspace", this.serialize());
 	};
 	
 	this.load = function(){
@@ -176,15 +150,16 @@ function CollectionManager(){
 		}
 		
 		var old_instance = JSON.parse(localStorage.getItem("temporary-workspace"));
-		
+		this.loadFromJSON(old_instance);
+	};
+	
+	this.loadFromJSON = function(json) {
 		//Remove old collections and notify event handlers
-		for(var i in this.collections) {
-			this._del(this.collections[i].name);
-		}
+		this._reset();
 
 		var promise_array = [];
-		for(var i in old_instance.collections) {
-			var current_collection_data = old_instance.collections[i];
+		for(var i in json.collections) {
+			var current_collection_data = json.collections[i];
 			var current_collection = new Collection(current_collection_data.name);
 			
 			for(var j in current_collection_data.sets){
@@ -207,7 +182,7 @@ function CollectionManager(){
 		}
 		
 		Promise.all(promise_array).then(function(allData){
-			getCollectionManager().set(old_instance.active_collection);
+			getCollectionManager().set(json.active_collection);
 		});
 	};
 	
@@ -263,6 +238,46 @@ function CollectionManager(){
 	
 	this.update = function() {
 		this._handle("update", this.getCurrent());
+	};
+	
+	this._reset = function() {
+		for(var i in this.collections) {
+			this._del(this.collections[i].name);
+		}
+	};
+	
+	this.reset = function () {
+		this._reset();
+		this.add(new Collection("Default Collection"));
+		this.set("Default Collection");
+		this.save();
+	};
+	
+	this.serialize = function() {
+		var cloned_manager = new CollectionManager();
+		cloned_manager.active_collection = this.active_collection;
+		for(var i in this.collections) {
+			var old_collection = this.collections[i];
+			var new_collection = new Collection(old_collection.name);
+			
+			for(var j in old_collection.sets) {
+				var old_set = old_collection.sets[j];
+				var new_set = new Set(
+						old_set.name,
+						old_set.db_name,
+						old_set.event_name,
+						old_set.tech_names,
+						old_set.start_date,
+						old_set.end_date
+				);
+				new_set.visualizations = old_set.visualizations;
+				new_collection.add(new_set);
+			}
+			
+			cloned_manager.add(new_collection);
+		}
+		
+		return JSON.stringify(cloned_manager)
 	};
 }
 
