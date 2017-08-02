@@ -76,16 +76,33 @@ function updateUI(collection){
 							"database_name" : set.db_name
 					};
 					
-					try {
-						renderer.run(viz_dom, set.data, viz.settings, context);
-					} catch(e) {
-						
-						var error_text = "Error running plugin " +
-							plugin_name + " | " + e;
-						viz_dom.append($("<p>").text(error_text).css("color", "red"));
-					}
+					var dataset = {
+							"viz_dom" : viz_dom,
+							"data" : set.data,
+							"settings": viz.settings,
+							"context" : context,
+							"panel_body" : panel_body
+					};
 					
-					panel_body.append(viz_dom);
+					new Promise(function(resolve, reject){
+			
+						try {
+							renderer.run(this.viz_dom, this.data, this.settings, this.context);
+							resolve(this);
+						} catch(e) {
+							
+							var error_text = "Error running plugin " +
+								plugin_name + " | " + e;
+							viz_dom.append($("<p>").text(error_text).css("color", "red"));
+							reject(this);
+						}
+						
+					}.bind(dataset)).then(function(fufill){
+						fufill.panel_body.append(fufill.viz_dom);
+					}).catch(function(error){
+						error.panel_body.append(error.viz_dom);
+					});
+					
 				}
 				
 				panel_body.attr("id", "set-panel" + counter);
@@ -159,6 +176,16 @@ $("document").ready(function(){
 		
 		//Think of more intelligent way of redrawing the page (currently redraws everything).
 		updateUI(collection);
+		
+	}));
+	
+	manager.registerHandler(new DssHandler("del", function(collection){
+		
+		delete _dom_table[collection.name];
+		
+		if(collection.name == _last_collection) {
+			_last_collection = null;
+		}
 		
 	}));
 	

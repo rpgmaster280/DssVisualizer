@@ -22,7 +22,10 @@ $("document").ready(function(){
 		$("#selectable li:contains('" + name + "')").addClass("ui-selected").siblings().removeClass("ui-selected");
 	}));
 	
+	manager.load();
 	
-	manager.add(new Collection("Default Collection"));
-	manager.set("Default Collection");
+	if(manager.size() == 0){
+		manager.add(new Collection("Default Collection"));
+		manager.set("Default Collection");
+	}
 });

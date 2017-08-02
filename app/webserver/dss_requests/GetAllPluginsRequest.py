@@ -22,7 +22,7 @@ class GetAllPluginsRequest(IRequest):
             
             file_name = server_state_info["static_content"][relative_path]["name"]
             extension = server_state_info["static_content"][relative_path]["extension"]
-            matches = re.match("^plugin_[a-zA-Z_]+\.js$", file_name)
+            matches = re.match("^plugin_[a-zA-Z0-9_]+\.js$", file_name)
             if matches != None and extension == "js":
                 start_index = file_name.find("_") + 1
                 end_index = file_name.find(".js")

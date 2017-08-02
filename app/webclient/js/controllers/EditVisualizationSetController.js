@@ -33,31 +33,10 @@ $("document").ready(function(){
 				start_date,
 				end_date
 		);
+		new_set.visualizations = current_set.visualizations;
+		collection.update(parseInt(current_set_index), new_set);
 		
-		//If the database has not changed, pass the data.
-		if(database == current_set.db_name) {
-			
-			new_set.insertData(current_set.data);
-			new_set.visualizations = current_set.visualizations;
-			collection.update(parseInt(current_set_index), new_set);
-			manager.update();
-			
-		//Else we need to re-query the database for new data.
-		} else {
-			
-			var request = new GetDataRequest(database, tech_names, event_name, start_date, end_date);
-			conn.registerHandler(new ResponseHandler(request.getType(), true, function(response) {
-				
-				if(response.success) {
-					new_set.insertData(response.data);
-					new_set.visualizations = current_set.visualizations;
-					collection.update(parseInt(current_set_index), new_set);
-					manager.update();
-				}
-				
-			}));
-			conn.sendRequest(request, true);
-		}
+		new_set.loadData().then(function(fufilled){ manager.update(); });
 		
 		$("#dssModal").modal('hide');
 	});
@@ -85,4 +64,5 @@ $("document").ready(function(){
 		
 	}));
 	conn.sendRequest(request, true);
+	
 });

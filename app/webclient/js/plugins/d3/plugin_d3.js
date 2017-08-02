@@ -7,10 +7,15 @@ if (namespace["D3"] == null) {
 		this.loadDependencies = function(){
 			
 			$.holdReady(true);
-			
 			$.getScript('js/plugins/d3/d3.js').done(function(){
 				$.holdReady(false);
 			});
+			
+			$.holdReady(true);
+			$.getScript('js/plugins/d3/d3pie.js').done(function(){
+				$.holdReady(false);
+			});
+			
 		};
 		
 		this.getType = function(){
