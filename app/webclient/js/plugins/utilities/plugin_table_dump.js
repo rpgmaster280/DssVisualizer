@@ -16,6 +16,10 @@ if (namespace["TableDump"] == null) {
 			return "Standalone";
 		};
 		
+		this.getDescription = function(){
+			return "Dumps the database contents to the screen.";
+		};
+		
 		this.getSettings = function() {
 			return {};
 		};

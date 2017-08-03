@@ -22,6 +22,10 @@ if (namespace["Timeline"] == null) {
 			return "Visjs";
 		};
 		
+		this.getDescription = function(){
+			return "VisJS based timeline graphing utility.";
+		};
+		
 		this.getSettings = function() {
 			return {
 				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)",
@@ -94,7 +98,32 @@ if (namespace["Timeline"] == null) {
 					}
 				},
 				editable: true,
-				stack: false
+				stack: false,
+				onAdd: function(item, callback){
+					new PopupGenerator().generateTextboxDialog('Add Annotation', 'Add', function(value) {
+						if (value) {
+							alert(JSON.stringify(value));
+						} else {
+							callback(null); // cancel item creation
+						}
+					});
+				},
+				onUpdate: function(item, callback){
+					new PopupGenerator().generateAnnotationViewDialog(item, item, callback);
+				},
+				onRemove: function(item, callback) {
+					new PopupGenerator().generateConfirmDialog(
+						'Remove item', 
+						'Do you really want to remove item ' + item.content + '?',
+						function (ok) {
+			                		if (ok) {
+			                    			//$.get("http://localhost?submission=edit&editType=delete&itemID="+item.id+"&type="+groupName+"&start="+item.start);
+			                    			callback(item); /* confirm deletion */
+			                		} else {
+			                    			callback(null); /* cancel deletion */
+			                		}
+		            		});
+				}
 			};
 
 			// Create a Timeline

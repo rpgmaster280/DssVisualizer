@@ -22,6 +22,10 @@ if (namespace["Frequency"] == null) {
 		this.getDependencies = function(){
 			return "Visjs";
 		};
+		
+		this.getDescription = function(){
+			return "VisJS based frequency graphing utility.";
+		};
 
 		//Settings currently ignored because the graph currently only supports one table
 		this.getSettings = function() {

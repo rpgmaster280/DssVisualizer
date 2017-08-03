@@ -29,6 +29,10 @@ if (namespace["Visjs"] == null) {
 			return "Standalone";
 		};
 		
+		this.getDescription = function(){
+			return "Vis.js is a dynamic browser based visualization library that can handle large amounts of dynamic data.";
+		};
+		
 		this.getSettings = function() {
 			return {};
 		};

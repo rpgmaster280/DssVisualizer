@@ -8,6 +8,7 @@ if (namespace["Banner"] == null) {
 			//Nothing to do here
 		};
 		
+		
 		this.getSettings = function() {
 			return {
 				"Text": "String", 
@@ -23,6 +24,10 @@ if (namespace["Banner"] == null) {
 		
 		this.getDependencies = function(){
 			return "Standalone";
+		};
+		
+		this.getDescription = function(){
+			return "Utility for adding headers to the set.";
 		};
 		
 		this.createInstance = function(anchor_point, data, settings, context) {

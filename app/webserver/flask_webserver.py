@@ -78,6 +78,10 @@ def data_request_handler():
     }
     return Response(req.processRequest(server_info), mimetype="application/json")
 
+@app.route('/')
+def index_request_handler():
+    return _get_resource("/index.html")
+
 #Finds html, js, image, and other standard resources needed for the browser
 def find_browser_files(startPoint):
     path_len = len(startPoint)
@@ -108,9 +112,8 @@ def find_browser_files(startPoint):
     return resource_map
 
 #Gets standard resources (html, css, js, images, etc) for the browser
-def get_resource():
-    
-    rule = flask_request.url_rule.rule
+def _get_resource(resource_path):
+    rule = resource_path
     contents = ""
     mtype = "plain/text"
     
@@ -146,6 +149,10 @@ def get_resource():
     
     #Return a response
     return Response(contents, mimetype=mtype)
+    
+def get_resource():
+    rule = flask_request.url_rule.rule
+    return _get_resource(rule)
     
 #This code sets up and starts the web server, linking in required resources
 file_content_path = sys.path[0][:-10] + "/webclient"

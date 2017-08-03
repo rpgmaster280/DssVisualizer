@@ -86,16 +86,22 @@ function updateUI(collection){
 					
 					new Promise(function(resolve, reject){
 			
-						try {
-							renderer.run(this.viz_dom, this.data, this.settings, this.context);
-							resolve(this);
-						} catch(e) {
-							
-							var error_text = "Error running plugin " +
-								plugin_name + " | " + e;
+						if(!renderer.enabled) {
+							var error_text = "Plugin tried to run but is disabled: " + plugin_name;
 							viz_dom.append($("<p>").text(error_text).css("color", "red"));
 							reject(this);
+						} else {
+							try {
+								renderer.run(this.viz_dom, this.data, this.settings, this.context);
+								resolve(this);
+							} catch(e) {
+								var error_text = "Error running plugin " +
+									plugin_name + " | " + e;
+								viz_dom.append($("<p>").text(error_text).css("color", "red"));
+								reject(this);
+							}
 						}
+						
 						
 					}.bind(dataset)).then(function(fufill){
 						fufill.panel_body.append(fufill.viz_dom);

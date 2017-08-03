@@ -15,14 +15,18 @@ function Plugin(class_name, path) {
 	
 	this.load = function() {
 		
-		if(this.enabled && !this.isRunning) {
+		if(!this.isRunning) {
 			
 			$.holdReady(true);
 			
 			var script_handler = function(script, text_status) {
 				//Called when loading dependency
 				this.instance = new _plugin_namespace[this.class_name]();
-				this.instance.loadDependencies();
+				
+				if(this.enabled) {
+					this.instance.loadDependencies();
+				}
+				
 				this.isRunning = true;
 				$.holdReady(false);
 			};
@@ -38,22 +42,29 @@ function Plugin(class_name, path) {
 	};
 	
 	this.getSettings = function(){
-		if(this.enabled && this.isRunning) {
+		if(this.isRunning) {
 			return this.instance.getSettings();
 		}
 		return null;
 	};
 	
 	this.getType = function(){
-		if(this.enabled && this.isRunning) {
+		if(this.isRunning) {
 			return this.instance.getType();
 		}
 		return null;
 	};
 	
 	this.getDependencies = function(){
-		if(this.enabled && this.isRunning) {
+		if(this.isRunning) {
 			return this.instance.getDependencies();
+		}
+		return null;
+	};
+	
+	this.getDescription = function() {
+		if(this.isRunning) {
+			return this.instance.getDescription();
 		}
 		return null;
 	};
@@ -72,11 +83,15 @@ function PluginManager() {
 		return this.plugins[name];
 	};
 	
+	this.getAll = function() {
+		return this.plugins;
+	};
+	
 	this.del = function(name) {
 		delete this.plugins[name];
 	};
 	
-	this.loadAll = function(){
+	this.loadAllPlugins = function(){
 		for(var i in this.plugins) {
 			this.plugins[i].load();
 		} 
@@ -94,6 +109,31 @@ function PluginManager() {
 		}
 		
 		return list_to_return;
+	};
+	
+	this.saveSettings = function() {
+		localStorage.setItem("plugin-settings", this.serialize());
+	};
+	
+	this.loadSettings = function() {
+		var old_settings = localStorage.getItem("plugin-settings");
+		
+		if(old_settings == null) {
+			return;
+		}
+		
+		old_settings = JSON.parse(old_settings);
+		
+		//If we find any matches, set enabled state based on previous state
+		for(var name in this.plugins) {
+			if(old_settings.plugins[name] != null) {
+				this.plugins[name].enabled = old_settings.plugins[name].enabled;
+			}
+		}
+	};
+	
+	this.serialize = function(){
+		return JSON.stringify(this);
 	};
 }
 
@@ -115,5 +155,5 @@ if(response.success) {
 		_pluginManager.add(plugin);
 	}
 }
-_pluginManager.loadAll();
-
+_pluginManager.loadSettings();
+_pluginManager.loadAllPlugins();

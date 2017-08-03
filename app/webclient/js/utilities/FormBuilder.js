@@ -27,6 +27,17 @@ function FormBuilder(settings){
 		
 		return input;
 	};
+
+	//Broken. Need to fix this.	
+	this.generateCheckboxField = function(id) {
+		var outer_div = $("<div>").addClass("checkbox");
+		var inner_label = $("<label>");
+		var input = $("<input>").attr("id", id).attr("type", "checkbox").attr("name", id).text(id);
+		
+		outer_div.append(inner_label);
+		inner_label.append(input);
+		return outer_div;
+	};
 	
 	this.constructForm = function(){
 		
@@ -60,6 +71,14 @@ function FormBuilder(settings){
 				var is_multi = setting_value.startsWith("MultiOptions");
 				var input = this.generateSelectField(setting_key, tokens, is_multi);
 				
+				form_group.append(input);
+				form.append(form_group);
+			
+			//Broken. Need to fix this.
+			} else if (setting_value == "Boolean") {
+				
+				label.css("display", "none");
+				var input = this.generateCheckboxField(setting_key);
 				form_group.append(input);
 				form.append(form_group);
 				

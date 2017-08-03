@@ -26,6 +26,10 @@ if (namespace["D3"] == null) {
 			return "Standalone";
 		};
 		
+		this.getDescription = function(){
+			return "Data Driven Document (D3) is a JavaScript library for manipulating documents based on data.";
+		};
+		
 		this.getSettings = function() {
 			return {};
 		};

@@ -30,7 +30,7 @@ gtkWindow.connect("delete-event", Gtk.main_quit)
 
 gtkWindow.set_default_size(1200, 1000)
 
-uri = "http://localhost:5000/EditPage.html"
+uri = "http://localhost:5000/"
 webKitWebView.load_uri(uri)
 
 gtkWindow.show_all()

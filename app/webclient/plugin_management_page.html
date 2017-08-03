@@ -1,0 +1,189 @@
+<!-- Copyright (C) 2016  Jamie Acosta, Jennifer Weand, Juan Soto, Mark Eby, Mark Smith, Andres Olivas
+
+This file is part of DssVisualizer.
+
+DssVisualizer is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+DssVisualizer is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
+-->
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>DSS Visualizer</title>
+	
+		<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.structure.min.css">
+		<link rel="stylesheet" type="text/css" href="css/jquery-ui.theme.min.css">
+		<link rel="stylesheet" type="text/css" href="css/VisualizationPage.css">
+		<link rel="stylesheet" type="text/css" href="css/chosen.min.css"> 
+		<link rel="stylesheet" type="text/css" href="css/sweetalert2.min.css"> 
+	
+		<script type="text/javascript" src="js/dependencies/jquery-1.11.0.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/jquery-ui.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/bootstrap.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/chosen.jquery.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/sweetalert2.min.js"></script>
+		<script type="text/javascript" src="js/dependencies/FileSaver.min.js"></script>
+		
+		<script type="text/javascript" src="js/utilities/Connection.js"></script>
+		<script type="text/javascript" src="js/utilities/PluginManager.js"></script>
+		<script type="text/javascript" src="js/utilities/AlertManager.js"></script>
+		<script type="text/javascript" src="js/utilities/CollectionManager.js"></script>
+		<script type="text/javascript" src="js/utilities/FormBuilder.js"></script>
+		<script type="text/javascript" src="js/utilities/PopupGenerator.js"></script>
+		<script type="text/javascript" src="js/utilities/TableGenerator.js"></script>
+		
+		<script type="text/javascript" src="js/controllers/PluginManagementController.js"></script>
+	
+		<style>
+			#full {
+				height: 100%;
+				width: 100%;
+			}
+			
+			#title_row, #menu_row {
+				height: 65px;
+			}
+			
+			#main_body {
+				height: calc(100% - 150px);
+				width: 100%;
+			}
+			
+			#settings_view {
+				margin-left: 50px;
+				width: 97%;
+			}
+			
+			#return_link {
+				margin-right: 10px;
+			}
+		
+			.table tbody tr td {
+				border-top: 0px;
+			}
+			
+		</style>
+	</head>
+
+	<body>
+	
+		<div id="full">
+		
+			<!-- Start Header -->
+			<div class = "row" id = "title_row">
+				<div class = "col-md-12" id = "header">
+					<img src= "img/ARL_logo.png" style="float:left;width:120px;padding-top:10px;"/>
+					<h1 style="color:rgb(80, 80, 80);margin-left:150px;"><b>DSS Visualizer - Settings</b></h1>
+				</div>
+			</div> <!-- End Header -->
+			
+			<!-- Start Menu Bar -->
+			<div class = "row" id = "menu_row">
+				<div class = "col-md-12" id = "menu_bar">
+					<nav class = "navbar navbar-inverse" style="border-radius:0px;">	
+						<!-- Menu Bar Elements -->
+						<div>
+							<!-- Right Menu Bar Elements -->
+							<ul class = "nav navbar-nav navbar-right">
+								<!-- Return link -->
+								<li id="return_link">
+									<a href="index.html">
+										Back to Visualizer
+									</a>
+								</li>
+								<!-- End Return link -->
+							</ul>
+							<!-- End Right Menu Bar Elements -->
+							
+						</div>
+						<!-- End Menu Bar Elements -->
+					</nav>
+				</div>
+			</div> <!-- End Menu Bar -->
+			
+			<!-- Start Main Body -->
+			<div class = "row" id = "main_body">
+				
+				<!-- Start Alert View -->
+					<div class = "row">
+						<div class = "col-md-12" id = "alert_panel">
+						</div>
+				</div> <!-- End Alert View -->
+					
+				<!-- Start Plugin Management -->
+					<div class = "row">
+						<div class = "col-md-12" id="settings_view">
+							<h1>Plugin Settings</h1>
+							<!-- Start Table -->
+						 	<table class = "table sortable-table table-hover">
+						 	
+						 		<!-- Start Header -->
+						 		<thead>
+						 			<tr>
+						 				<th class = "sortable-column">Plugin Name</th>
+						 				<th class = "sortable-column">Description</th>
+						 				<th class = "sortable-column">Type</th>
+						 				<th class = "sortable-column">Dependencies</th>
+							 			<th class = "sortable-column">Enabled</th>
+						 			</tr>
+						 		</thead> <!-- End Header -->
+						 		
+						 		<!-- Start Footer -->
+						 		<tfoot>
+						 			<tr>
+						 				<th class = "sortable-column">Plugin Name</th>
+						 				<th class = "sortable-column">Description</th>
+						 				<th class = "sortable-column">Type</th>
+						 				<th class = "sortable-column">Dependencies</th>
+							 			<th class = "sortable-column">Enabled</th>
+						 			</tr>
+						 			<tr>
+								      <th colspan="7" class="ts-pager form-horizontal">
+								        <button type="button" class="btn first"><i class="icon-step-backward glyphicon glyphicon-step-backward"></i></button>
+								        <button type="button" class="btn prev"><i class="icon-arrow-left glyphicon glyphicon-backward"></i></button>
+										<span class="pagedisplay"></span> <!-- this can be any element, including an input -->
+								        <button type="button" class="btn next"><i class="icon-arrow-right glyphicon glyphicon-forward"></i></button>
+								        <button type="button" class="btn last"><i class="icon-step-forward glyphicon glyphicon-step-forward"></i></button>
+								        <select class="pagesize input-mini" title="Select page size">
+								          <option value="5">5</option>
+								          <option value="10">10</option>
+								          <option selected="selected" value="15">15</option>
+								          <option value="20">20</option>
+								          <option value="25">25</option>
+								        </select>
+								        <select class="pagenum input-mini" title="Select page number"></select>
+								      </th>
+								    </tr>
+						 		</tfoot> <!-- End Footer -->
+						 		
+						 		<!-- Start Body -->
+						 		<tbody>							
+						 		</tbody> <!-- End Body -->
+						            
+						    </table> <!-- End Table -->
+						</div>
+					</div> <!-- End Plugin Management -->
+					
+			</div> <!-- End Main Body -->
+			
+			<div class = "row"> <!-- Start Footer -->
+				<div class = "col-md-12" id = "footer">
+					Code licensed under the <a href="https://www.gnu.org/licenses/gpl-3.0-standalone.html">GPLv3</a>
+				</div>
+			</div> <!-- End Footer -->
+		</div>
+
+	</body>
+
+</html>

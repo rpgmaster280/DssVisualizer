@@ -78,6 +78,10 @@ if (namespace["Piechart"] == null) {
 		this.getDependencies = function(){
 			return "D3";
 		};
+		
+		this.getDescription = function(){
+			return "D3 based pie chart graphing utility.";
+		};
 
 		this.getSettings = function() {
 			return {

@@ -20,6 +20,10 @@ if (namespace["HorizontalRule"] == null) {
 			return "Standalone";
 		};
 		
+		this.getDescription = function(){
+			return "Utility for adding horizontal rules to the set.";
+		};
+		
 		this.createInstance = function(anchor_point, data, settings, context) {
 
 			anchor_point.append($("<hr>"));
