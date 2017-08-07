@@ -1,4 +1,20 @@
 
+function AddAnnotationRequest(db_name, table_name, contents) {
+	Request.call(this, "DSS_ADD_ANNOTATION", {
+		"db_name" : db_name,
+		"table_name" : table_name,
+		"contents" : contents
+	});
+}
+
+function DeleteAnnotationRequest(db_name, table_name, id) {
+	Request.call(this, "DSS_REMOVE_ELEMENT", {
+		"db_name" : db_name,
+		"table_name" : table_name,
+		"id" : id
+	});
+}
+
 function JSONDatetoMillis(date){
 	var theDate = date.split(/-|:| /);
 	var d = new Date(theDate[0],theDate[1]-1,theDate[2],theDate[3],theDate[4],theDate[5]);
@@ -6,6 +22,7 @@ function JSONDatetoMillis(date){
 }
 
 var namespace = getPluginNamespace();
+var metaDataItem = {};
 
 if (namespace["Timeline"] == null) {
 	namespace.Timeline = function Timeline(){
@@ -59,7 +76,10 @@ if (namespace["Timeline"] == null) {
 			var items = new vis.DataSet();
 			for(var i in tables) {
 				var database_table = data[tables[i]];
-				database_table.forEach(function(obj){ obj['group'] = (i + "");});
+				database_table.forEach(function(obj){ 
+					obj['group'] = (i + "");
+					obj['m_id'] = obj["_id"]["$oid"];
+				});
 				items.add(database_table);
 			}
 			
@@ -102,11 +122,44 @@ if (namespace["Timeline"] == null) {
 				onAdd: function(item, callback){
 					new PopupGenerator().generateTextboxDialog('Add Annotation', 'Add', function(value) {
 						if (value) {
-							alert(JSON.stringify(value));
+
+							var isoDate = new Date(item.start);
+							var itemDateString = isoDate.getFullYear()+"-"+(isoDate.getMonth()+1)+"-"+isoDate.getDate();
+							var itemTimeHours = addLeadingZeroes(isoDate.getHours());
+							var itemTimeMinutes = addLeadingZeroes(isoDate.getMinutes());
+							var itemTimeSeconds = addLeadingZeroes(isoDate.getSeconds());
+							itemDateString += " "+itemTimeHours+":"+itemTimeMinutes+":"+itemTimeSeconds;
+							
+							var db_name = this.context.database_name;
+							var table_name = metaDataItem.parent_table;
+							
+							item.start = itemDateString;
+							item.content = value;
+							item.annotation = value;
+							item.className = "annotation";
+							item.event_name = metaDataItem.event_name;
+							item.tech_name = metaDataItem.tech_name;
+							item.parent_table = metaDataItem.parent_table;
+							
+							delete item.id;
+
+							var request = new AddAnnotationRequest(db_name, table_name, JSON.stringify(item));
+							var connection = getDssConnectionSingleton();
+							connection.registerHandler(new ResponseHandler(request.getType(), true, function(response){
+								
+								if(response.success) {
+									item['m_id'] = response.data["$oid"]
+									callback(item);
+								} else {
+									callback(null);
+								}
+							}));
+							connection.sendRequest(request, true); 
+							
 						} else {
-							callback(null); // cancel item creation
+							callback(null);
 						}
-					});
+					}.bind({"context": context}));
 				},
 				onUpdate: function(item, callback){
 					new PopupGenerator().generateAnnotationViewDialog(item, item, callback);
@@ -117,12 +170,25 @@ if (namespace["Timeline"] == null) {
 						'Do you really want to remove item ' + item.content + '?',
 						function (ok) {
 			                		if (ok) {
-			                    			//$.get("http://localhost?submission=edit&editType=delete&itemID="+item.id+"&type="+groupName+"&start="+item.start);
-			                    			callback(item); /* confirm deletion */
+			                			
+			                			var db_name = this.context.database_name;
+			                			var table_name = item.parent_table;
+			                			
+			                			var request = new DeleteAnnotationRequest(db_name, table_name, item.m_id);
+										var connection = getDssConnectionSingleton();
+										connection.registerHandler(new ResponseHandler(request.getType(), true, function(response){
+											if(response.success) {
+												callback(item);
+											} else {
+												callback(null);
+											}
+										}));
+										connection.sendRequest(request, true); 
+			                    		callback(item); /* confirm deletion */
 			                		} else {
-			                    			callback(null); /* cancel deletion */
+			                    		callback(null); /* cancel deletion */
 			                		}
-		            		});
+	            		}.bind({"context": context}));
 				}
 			};
 
@@ -146,6 +212,20 @@ if (namespace["Timeline"] == null) {
 					}
 				}.bind({"key" : settings.SyncKey}));
 			}
+			
+			// Populates metaDataItem global object whenever a user doubleclicks on the graph
+		    graph.on('doubleClick', function(properties){
+		        var firstChildItemOfTimeline = properties.event.firstTarget.firstChild;
+		        try {
+		            var firstChildId = firstChildItemOfTimeline.getAttribute("data-id");
+		            items.forEach(function(data){
+		                if(data['id'] == firstChildId){
+		                    metaDataItem = data;
+		                    return;
+		                }
+		            })
+		        } catch(TypeError) {}
+		    });
 			
 		};
 	};

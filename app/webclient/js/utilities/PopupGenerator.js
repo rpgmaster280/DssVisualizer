@@ -26,7 +26,7 @@ function PopupGenerator() {
 		var text = formatObjectForDisplay(item);
 		var form = this.generateAnnotationEditForm(item);
 		swal.setDefaults({
-			confirmButtonText: 'Edit',
+			confirmButtonText: 'Ok',
 			showCancelButton: true,
 			animation: false
 		});
@@ -37,32 +37,32 @@ function PopupGenerator() {
 				html: text,
 				width: '700px'
 			},
-			{
-				title: 'Editing: '+title,
-				html: form,
-				width: '90%',
-				confirmButtonText: 'Submit',
-				preConfirm: function(result) {
-					return new Promise(function(resolve) {
-						if (result) {
-							var jsonResults = {
-								"startDate": $('#editStartDate').val(),
-								"startHours": $('#editStartHours').val(),
-								"startMinutes": $('#editStartMinutes').val(),
-								"startSeconds": $('#editStartSeconds').val(),
-								"annotation": $('#editAnnotation').val()
-							};
-							Object.keys(item).forEach(function(key){
-								if(arrayOfEditIncludedAttr.indexOf(key)>-1){
-									jsonResults[key] = $('#edit'+key).val();
-								}
-							});
-							resultsFromForm = jsonResults;
-							resolve(jsonResults);
-						}
-					})
-				}
-			}
+//			{
+//				title: 'Editing: '+title,
+//				html: form,
+//				width: '90%',
+//				confirmButtonText: 'Submit',
+//				preConfirm: function(result) {
+//					return new Promise(function(resolve) {
+//						if (result) {
+//							var jsonResults = {
+//								"startDate": $('#editStartDate').val(),
+//								"startHours": $('#editStartHours').val(),
+//								"startMinutes": $('#editStartMinutes').val(),
+//								"startSeconds": $('#editStartSeconds').val(),
+//								"annotation": $('#editAnnotation').val()
+//							};
+//							Object.keys(item).forEach(function(key){
+//								if(arrayOfEditIncludedAttr.indexOf(key)>-1){
+//									jsonResults[key] = $('#edit'+key).val();
+//								}
+//							});
+//							resultsFromForm = jsonResults;
+//							resolve(jsonResults);
+//						}
+//					})
+//				}
+//			}
 		];
 
 		swal.queue(steps).then(function(ok){

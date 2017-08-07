@@ -92,3 +92,5 @@ class UploadFileRequest(IRequest):
         db[table].insert_many(event_data)
         
         return dss_success
+    
+    

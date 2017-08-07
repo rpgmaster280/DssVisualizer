@@ -73,7 +73,7 @@ function updateUI(collection){
 					
 					var context = {
 							"collection_name" : collection.name,
-							"database_name" : set.db_name
+							"database_name" : set.db_name,
 					};
 					
 					var dataset = {

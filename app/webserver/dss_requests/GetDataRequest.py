@@ -74,6 +74,7 @@ class GetDataRequest(IRequest):
                         document["start"] = document["start"].strftime('%Y-%m-%d %H:%M:%S')
                     elif "x" in document:
                         document["x"] = document["x"].strftime('%Y-%m-%d %H:%M:%S')
+                    document["parent_table"] = collection
                     datasets_to_return[collection].append(document)
         
         response = {
