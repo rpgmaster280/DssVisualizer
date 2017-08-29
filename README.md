@@ -1,3 +1,5 @@
 # DssVisualizer
 
-  * Please see the <a href="http://opencampus.cs.utep.edu/interrupt0x22/">documentation</a> for more information on the application, how to install it, how to run it, and all sorts of other cool stuff.
+  * In order to install the system, execute the installer.sh script found in the root directory of the project.
+  * In order to run the web server,  execute the run.sh script found in the root directory of the project.
+  * In order to connect to the web server, type the following URL into your browser: http://localhost:5000

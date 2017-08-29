@@ -38,7 +38,7 @@ def loadDssRequests():
 request_map = loadDssRequests()
 app = Flask(__name__)
 
-#Begin list of error messages (Change to DssResponses)
+#Begin list of error messages
 type_not_found = """{ 
     "message": "Type not found",
     "success": false,

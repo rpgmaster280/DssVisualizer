@@ -22,6 +22,12 @@ function compute_categories(traffic){
 	};
 	
 	for(var i in traffic) {
+
+		//Checks to see if the data point is not an annotation.
+		if (traffic[i].title == null) {
+			continue;
+		}
+
 		var row = traffic[i].title;
 		var tokenized = row.split("\n");
 		
