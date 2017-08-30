@@ -78,7 +78,9 @@ if (namespace["Frequency"] == null) {
 				height: "150px",
 				showMinorLabels: false,
 				showMajorLabels: false,
-				dataAxis: {visible: false}
+				dataAxis: {visible: false},
+				sampling: true,
+				sort: true
 			};
 			
 			// Create a frequency graph
