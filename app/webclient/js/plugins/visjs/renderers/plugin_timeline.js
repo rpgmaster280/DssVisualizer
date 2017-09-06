@@ -64,7 +64,8 @@ if (namespace["Timeline"] == null) {
 			return {
 				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic, Snoopy)",
 				"Synchronized": "Options(On, Off)",
-				"PointStyle" : "Options(box, point)"
+				"PointStyle" : "Options(box, point)",
+				"TimeAxis" : "Options(Off, Major, Minor, Both)"
 			};
 		};
 		
@@ -120,6 +121,9 @@ if (namespace["Timeline"] == null) {
 			endDate = JSONDatetoMillis(endDate) + anHour;
 			maxZoom = endDate - startDate;
 			
+			var majorOn = settings.TimeAxis == "Major" || settings.TimeAxis == "Both";
+			var minorOn = settings.TimeAxis == "Minor" || settings.TimeAxis == "Both";
+			
 			// Configuration for the Timeline
 			var options = {
 				min: startDate,
@@ -139,6 +143,8 @@ if (namespace["Timeline"] == null) {
 				},
 				editable: false, //Turn me on when add is fixed
 				stack: false,
+				showMajorLabels : majorOn,
+				showMinorLabels : minorOn,
 				/*onAdd: function(item, callback){
 					new PopupGenerator().generateTextboxDialog('Add Annotation', 'Add', function(value) {
 						if (value) {

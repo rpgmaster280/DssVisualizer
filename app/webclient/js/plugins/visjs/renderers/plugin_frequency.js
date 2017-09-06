@@ -47,7 +47,9 @@ if (namespace["Frequency"] == null) {
 		this.getSettings = function() {
 			return {
 				"Sources": "Options(Traffic Throughput)",
-				"Synchronized": "Options(On, Off)"
+				"Synchronized": "Options(On, Off)",
+				"TimeAxis" : "Options(Off, Major, Minor, Both)",
+				"YAxisVisible" : "Options(On, Off)"
 			};
 		};
 		
@@ -80,6 +82,10 @@ if (namespace["Frequency"] == null) {
 			startDate = JSONDatetoMillis(startDate) - anHour;
 			endDate = JSONDatetoMillis(endDate) + anHour;
 			maxZoom = endDate - startDate;
+			
+			var majorOn = settings.TimeAxis == "Major" || settings.TimeAxis == "Both";
+			var minorOn = settings.TimeAxis == "Minor" || settings.TimeAxis == "Both";
+			var yaxisvisible = settings.YAxisVisible == "On";
 
 			var options = {
 				// limit viewing window to startdate and end date
@@ -92,9 +98,9 @@ if (namespace["Frequency"] == null) {
 				drawPoints: true,
 				interpolation: false,
 				height: "150px",
-				showMinorLabels: false,
-				showMajorLabels: false,
-				dataAxis: {visible: false},
+				showMinorLabels: minorOn,
+				showMajorLabels: majorOn,
+				dataAxis: {visible: yaxisvisible},
 				sampling: true,
 				sort: true
 			};
