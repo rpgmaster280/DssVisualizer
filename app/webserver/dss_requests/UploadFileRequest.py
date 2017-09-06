@@ -45,6 +45,8 @@ class UploadFileRequest(IRequest):
             return "traffic_throughput"
         elif "manualscreen_id" in first_row:
             return "manual_screenshots"
+        elif "snoopy_id" in first_row:
+            return "snoopy"
         return None
             
         

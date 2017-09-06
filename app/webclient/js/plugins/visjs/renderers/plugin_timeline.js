@@ -62,7 +62,7 @@ if (namespace["Timeline"] == null) {
 		
 		this.getSettings = function() {
 			return {
-				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)",
+				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic, Snoopy)",
 				"Synchronized": "Options(On, Off)"
 			};
 		};
@@ -78,7 +78,8 @@ if (namespace["Timeline"] == null) {
 				"Keypresses" : "keypresses",
 				"TimedScreenshots" : "timed_screenshots",
 				"ManualScreenshots" : "manual_screenshots",
-				"Traffic" : "traffic"
+				"Traffic" : "traffic",
+				"Snoopy" : "snoopy"
 			};
 			
 			var tables = [];

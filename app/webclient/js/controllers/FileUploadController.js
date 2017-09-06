@@ -106,6 +106,9 @@ $("document").ready(function(){
 			} else if (obj[0].manualscreen_id != null){
 				$("#fileFeedback").text("Manual screenshot data selected.");
 				if(can_enable) $("#submitButton").removeClass("disabled");
+			} else if (obj[0].snoopy_id != null){
+				$("#fileFeedback").text("Snoopy data selected.");
+				if(can_enable) $("#submitButton").removeClass("disabled");
 			} else {
 				$("#fileFeedback").text("File type not supported.");
 				$("#submitButton").addClass("disabled");
