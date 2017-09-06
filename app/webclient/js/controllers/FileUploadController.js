@@ -88,7 +88,7 @@ $("document").ready(function(){
 				return;
 			}
 			
-			if (obj[0].keypress_id != null) {
+			if ((obj[0].keypress_id != null) || (obj[0].keypresses_id != null)) {
 				$("#fileFeedback").text("Keypress data selected.");
 				if(can_enable) $("#submitButton").removeClass("disabled");
 			} else if (obj[0].clicks_id != null) {

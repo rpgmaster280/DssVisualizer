@@ -63,7 +63,7 @@ if (namespace["Timeline"] == null) {
 		this.getSettings = function() {
 			return {
 				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic)",
-				"SyncKey": "String"
+				"Synchronized": "Options(On, Off)"
 			};
 		};
 		
@@ -134,9 +134,9 @@ if (namespace["Timeline"] == null) {
 				    	return '<div>' + item.content + '</div>';
 					}
 				},
-				editable: true,
+				editable: false, //Turn me on when add is fixed
 				stack: false,
-				onAdd: function(item, callback){
+				/*onAdd: function(item, callback){
 					new PopupGenerator().generateTextboxDialog('Add Annotation', 'Add', function(value) {
 						if (value) {
 
@@ -201,22 +201,26 @@ if (namespace["Timeline"] == null) {
 											}
 										}));
 										connection.sendRequest(request, true); 
-			                    		callback(item); /* confirm deletion */
+			                    		callback(item); //confirm deletion
 			                		} else {
-			                    		callback(null); /* cancel deletion */
+			                    		callback(null); //cancel deletion
 			                		}
 	            		}.bind({"context": context}));
-				}
+				}*/
 			};
 
 			// Create a Timeline
 			var graph = new vis.Timeline(container, items, groups, options);
 			anchor_point.data("timeline", graph);
 			
-			if(settings.SyncKey != null && settings.SyncKey != "") {
+			var sync_key = context.set_name + context.set_index;
+			if(settings.Synchronized == "On") {
+				
 				var table = context.collection_name;
+				
 				var synchronizer = getGraphSynchronizer();
-				synchronizer.add_graph(table, settings.SyncKey, graph);
+				synchronizer.add_graph(table, sync_key, graph);
+				
 				graph.on("rangechanged", function(properties){
 					var windowRangeStart = properties.start;
 					var windowRangeEnd = properties.end;
@@ -227,7 +231,7 @@ if (namespace["Timeline"] == null) {
 						var graph = graphs[i];
 						graph.setWindow(windowRangeStart,windowRangeEnd);
 					}
-				}.bind({"key" : settings.SyncKey}));
+				}.bind({"key" : sync_key}));
 			}
 			
 			// Populates metaDataItem global object whenever a user doubleclicks on the graph
@@ -243,7 +247,6 @@ if (namespace["Timeline"] == null) {
 		            })
 		        } catch(TypeError) {}
 		    });
-			
 		};
 	};
 }

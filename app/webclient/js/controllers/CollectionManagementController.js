@@ -91,6 +91,10 @@ function updateUI(collection){
 					var context = {
 							"collection_name" : collection.name,
 							"database_name" : set.db_name,
+							"set_name" : set.name,
+							"set_index" : index,
+							"viz_name" : plugin_name,
+							"viz_index" : i
 					};
 					
 					var dataset = {

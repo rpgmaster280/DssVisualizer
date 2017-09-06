@@ -33,7 +33,7 @@ class UploadFileRequest(IRequest):
     def getTable(self, event_data):
         first_row = event_data[0]
             
-        if "keypress_id" in first_row:
+        if "keypress_id" in first_row or "keypresses_id" in first_row:
             return "keypresses"
         elif "clicks_id" in first_row:
             return "clicks"
@@ -94,10 +94,7 @@ class UploadFileRequest(IRequest):
         for row in event_data:
             row["tech_name"] = tech_name
             row["event_name"] = event_name
-            if "start" in row:
-                row["start"] = datetime.strptime(row["start"], "%Y-%m-%dT%H:%M:%S")
-            elif "x" in row:
-                row["x"] = datetime.strptime(row["x"], "%Y-%m-%dT%H:%M:%S")
+            row["start"] = datetime.strptime(row["start"], "%Y-%m-%dT%H:%M:%S")
         
         table = self.getTable(event_data)
         db[table].insert_many(event_data)

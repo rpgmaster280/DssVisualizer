@@ -1,0 +1,22 @@
+Aug 30 16:10:24 kali snoopy[18183]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/tshark filename:/usr/local/sbin/dumpcap]: dumpcap -i eth0 -w /root/ecel/plugins/collectors/tshark/raw/1504131024_eth0.pcap
+Aug 30 16:10:24 kali snoopy[18183]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/tshark filename:/usr/local/bin/dumpcap]: dumpcap -i eth0 -w /root/ecel/plugins/collectors/tshark/raw/1504131024_eth0.pcap
+Aug 30 16:10:24 kali snoopy[18183]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/tshark filename:/usr/sbin/dumpcap]: dumpcap -i eth0 -w /root/ecel/plugins/collectors/tshark/raw/1504131024_eth0.pcap
+Aug 30 16:10:24 kali snoopy[18183]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/tshark filename:/usr/bin/dumpcap]: dumpcap -i eth0 -w /root/ecel/plugins/collectors/tshark/raw/1504131024_eth0.pcap
+Aug 30 16:10:24 kali snoopy[18185]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/pykeylogger filename:/usr/local/sbin/python]: python keylogger.pyw
+Aug 30 16:10:24 kali snoopy[18185]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/pykeylogger filename:/usr/local/bin/python]: python keylogger.pyw
+Aug 30 16:10:24 kali snoopy[18185]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/pykeylogger filename:/usr/sbin/python]: python keylogger.pyw
+Aug 30 16:10:24 kali snoopy[18185]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/pykeylogger filename:/usr/bin/python]: python keylogger.pyw
+Aug 30 16:10:24 kali snoopy[18186]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/snoopy filename:./watchSnoopyFile.sh]: ./watchSnoopyFile.sh /var/log/auth.log /root/ecel/plugins/collectors/snoopy/raw/1504131024_snoopy.txt
+Aug 30 16:10:24 kali snoopy[18187]: [datetime:2017-08-30T16:10:24-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/snoopy filename:/usr/bin/tail]: tail -f /var/log/auth.log
+Aug 30 16:10:25 kali snoopy[18189]: [datetime:2017-08-30T16:10:25-0600 uid:0 sid:1863 tty:/dev/pts/1 cwd:/root/ecel/plugins/collectors/pykeylogger/raw filename:/bin/uname]: uname -p
+Aug 30 16:10:29 kali snoopy[18204]: [datetime:2017-08-30T16:10:29-0600 uid:0 sid:18204 tty:/dev/pts/2 cwd:/root/ecel filename:/bin/bash]: bash
+Aug 30 16:10:30 kali snoopy[18205]: [datetime:2017-08-30T16:10:30-0600 uid:0 sid:18204 tty:/dev/pts/2 cwd:/root/ecel filename:/usr/bin/tput]: tput setaf 1
+Aug 30 16:10:30 kali snoopy[18207]: [datetime:2017-08-30T16:10:30-0600 uid:0 sid:18204 tty:/dev/pts/2 cwd:/root/ecel filename:/usr/bin/dircolors]: dircolors -b
+Aug 30 16:10:30 kali snoopy[18209]: [datetime:2017-08-30T16:10:30-0600 uid:0 sid:18204 tty:/dev/pts/2 cwd:/root/ecel filename:/bin/ls]: ls /etc/bash_completion.d
+Aug 30 16:10:35 kali snoopy[18210]: [datetime:2017-08-30T16:10:35-0600 uid:0 sid:18204 tty:/dev/pts/2 cwd:/root/ecel filename:/bin/ping]: ping google.com -i0.002
+Aug 30 16:10:53 kali snoopy[18220]: [datetime:2017-08-30T16:10:53-0600 uid:0 sid:1017 tty:(none) cwd:/root filename:/usr/lib/firefox-esr/plugin-container]: /usr/lib/firefox-esr/plugin-container -greomni /usr/lib/firefox-esr/omni.ja -appomni /usr/lib/firefox-esr/browser/omni.ja -appdir /usr/lib/firefox-esr/browser 3906 tab
+Aug 30 16:11:53 kali snoopy[18269]: [datetime:2017-08-30T16:11:53-0600 uid:0 sid:18269 tty:/dev/pts/2 cwd:/root/ecel filename:/bin/bash]: bash
+Aug 30 16:11:53 kali snoopy[18270]: [datetime:2017-08-30T16:11:53-0600 uid:0 sid:18269 tty:/dev/pts/2 cwd:/root/ecel filename:/usr/bin/tput]: tput setaf 1
+Aug 30 16:11:53 kali snoopy[18272]: [datetime:2017-08-30T16:11:53-0600 uid:0 sid:18269 tty:/dev/pts/2 cwd:/root/ecel filename:/usr/bin/dircolors]: dircolors -b
+Aug 30 16:11:53 kali snoopy[18274]: [datetime:2017-08-30T16:11:53-0600 uid:0 sid:18269 tty:/dev/pts/2 cwd:/root/ecel filename:/bin/ls]: ls /etc/bash_completion.d
+Aug 30 16:11:56 kali snoopy[18275]: [datetime:2017-08-30T16:11:56-0600 uid:0 sid:18269 tty:/dev/pts/2 cwd:/root/ecel filename:/usr/bin/nmap]: nmap localhost

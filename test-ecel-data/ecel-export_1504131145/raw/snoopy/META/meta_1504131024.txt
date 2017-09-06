@@ -1,0 +1,4 @@
+snoopy
+===============================
+Commands:# ./watchSnoopyFile.sh /var/log/auth.log /root/ecel/plugins/collectors/snoopy/raw/%TIME%_snoopy.txt
+===============================

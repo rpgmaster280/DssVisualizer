@@ -1,0 +1,161 @@
+20170830|1504131029.63|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Control_L]
+20170830|1504131029.73|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Shift_L]
+20170830|1504131030.14|gnome-terminal-server|.Window'>(|root|Terminal|T
+20170830|1504131030.81|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|p
+20170830|1504131031.1|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|i
+20170830|1504131031.64|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|n
+20170830|1504131032.0|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|g 
+20170830|1504131032.01|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|g
+20170830|1504131032.05|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|o
+20170830|1504131032.07|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|ogle
+20170830|1504131032.08|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|.c
+20170830|1504131032.09|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|om -
+20170830|1504131033.21|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|i
+20170830|1504131034.05|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|0
+20170830|1504131034.29|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|.
+20170830|1504131034.55|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|0
+20170830|1504131035.01|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|0
+20170830|1504131035.31|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|2
+20170830|1504131035.83|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Return]
+20170830|1504131036.75|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Control_L]
+20170830|1504131037.14|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|c
+20170830|1504131038.48|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|e
+20170830|1504131038.68|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|x
+20170830|1504131038.84|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|i
+20170830|1504131038.94|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|t
+20170830|1504131039.05|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Return]
+20170830|1504131054.76|Navigator|.Window'>(|root|Mozilla Firefox|t
+20170830|1504131054.82|Navigator|.Window'>(|root|Mozilla Firefox|e
+20170830|1504131054.86|Navigator|.Window'>(|root|Mozilla Firefox|s
+20170830|1504131054.97|Navigator|.Window'>(|root|Mozilla Firefox|t
+20170830|1504131055.07|Navigator|.Window'>(|root|Mozilla Firefox|.
+20170830|1504131055.22|Navigator|.Window'>(|root|Mozilla Firefox|c
+20170830|1504131055.34|Navigator|.Window'>(|root|Mozilla Firefox|o
+20170830|1504131055.37|Navigator|.Window'>(|root|Mozilla Firefox|m
+20170830|1504131055.62|Navigator|.Window'>(|root|Mozilla Firefox|[KeyName:Return]
+20170830|1504131068.11|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|[KeyName:Shift_L]
+20170830|1504131068.58|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|[KeyName:Shift_L]
+20170830|1504131073.63|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131073.73|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|es
+20170830|1504131073.83|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131073.99|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|.
+20170830|1504131074.09|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|c
+20170830|1504131074.19|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|o
+20170830|1504131074.24|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|m
+20170830|1504131074.36|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131074.86|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|8
+20170830|1504131074.95|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|0
+20170830|1504131075.05|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131075.57|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|j
+20170830|1504131075.67|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|c
+20170830|1504131075.71|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|a
+20170830|1504131075.96|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131076.56|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Shift_L]
+20170830|1504131076.75|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|A
+20170830|1504131076.94|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131077.1|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131077.31|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|c
+20170830|1504131077.46|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|r
+20170830|1504131077.55|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131077.89|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131078.25|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|n
+20170830|1504131078.4|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131078.54|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|h
+20170830|1504131078.59|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|o
+20170830|1504131078.77|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131078.96|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131079.33|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|of
+20170830|1504131079.34|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131080.0|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131080.05|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131080.11|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131080.2|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131080.36|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|.
+20170830|1504131080.46|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|c
+20170830|1504131080.56|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|o
+20170830|1504131080.61|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|m
+20170830|1504131081.27|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131081.42|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131081.67|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131083.91|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|s
+20170830|1504131084.53|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|[KeyName:Shift_L]
+20170830|1504131084.82|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|[KeyName:Home]
+20170830|1504131085.13|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|s
+20170830|1504131085.19|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|p
+20170830|1504131085.35|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|e
+20170830|1504131085.5|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|e
+20170830|1504131085.65|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|d
+20170830|1504131086.02|Navigator|.Window'>(|root|Find online tests, practice test, and test creation software [sep_key] Test.com - Mozilla Firefox|[KeyName:Return]
+20170830|1504131093.49|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131093.57|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|p
+20170830|1504131093.71|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131093.86|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131094.04|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|d
+20170830|1504131094.71|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131094.76|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131094.81|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131094.91|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131095.01|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|.
+20170830|1504131095.16|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|n
+20170830|1504131095.25|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131095.28|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131095.51|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131095.98|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|8
+20170830|1504131096.07|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|0
+20170830|1504131096.17|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131096.61|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|j
+20170830|1504131096.71|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|c
+20170830|1504131096.76|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|a
+20170830|1504131097.03|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131097.31|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Shift_L]
+20170830|1504131097.46|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|A
+20170830|1504131097.82|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131097.97|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131098.17|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|c
+20170830|1504131098.36|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|r
+20170830|1504131098.44|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131098.55|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131098.76|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|n
+20170830|1504131098.89|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131099.05|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|h
+20170830|1504131099.1|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|o
+20170830|1504131099.23|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131099.33|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131099.43|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|o
+20170830|1504131099.53|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|f
+20170830|1504131099.63|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131099.79|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131100.56|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:BackSpace]
+20170830|1504131100.95|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131101.06|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|p
+20170830|1504131101.2|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131101.35|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131101.54|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|d
+20170830|1504131101.85|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131101.95|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131101.99|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|s
+20170830|1504131102.07|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131102.24|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|.
+20170830|1504131102.35|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|n
+20170830|1504131102.46|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|e
+20170830|1504131102.53|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|t
+20170830|1504131102.89|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131103.08|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0|[KeyName:Tab]
+20170830|1504131103.3|ecel_gui.py|.Window'>(|root|Manual ScreenShot Comment ECEL V2.0| 
+20170830|1504131113.11|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Control_L]
+20170830|1504131113.19|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Shift_L]
+20170830|1504131113.33|gnome-terminal-server|.Window'>(|root|Terminal|T
+20170830|1504131113.75|gnome-terminal-server|.Window'>(|root|Terminal|n
+20170830|1504131114.07|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|m
+20170830|1504131114.34|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|a
+20170830|1504131114.73|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|p 
+20170830|1504131114.8|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|l
+20170830|1504131114.95|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|o
+20170830|1504131115.05|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|c
+20170830|1504131115.1|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|a
+20170830|1504131115.16|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|l
+20170830|1504131115.34|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|h
+20170830|1504131115.39|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|o
+20170830|1504131115.49|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|s
+20170830|1504131115.54|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|t
+20170830|1504131116.25|gnome-terminal-server|.Window'>(|root|root@kali: ~/ecel|[KeyName:Return]

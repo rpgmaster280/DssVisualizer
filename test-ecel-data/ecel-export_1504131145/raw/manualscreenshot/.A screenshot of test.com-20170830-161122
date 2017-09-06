@@ -1,0 +1,8 @@
+[{
+ "ip" : "test.com"
+ "port" : "80"
+ "initial" : "jca"
+ "timestamp" : "20170830-161122"
+ "savepath" : "/root/ecel/plugins/collectors/manualscreenshot/raw/A screenshot of test.com-20170830-161122.png"
+ "comment" : "A screenshot of test.com"
+}]

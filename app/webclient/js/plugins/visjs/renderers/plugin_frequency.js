@@ -47,7 +47,7 @@ if (namespace["Frequency"] == null) {
 		this.getSettings = function() {
 			return {
 				"Sources": "Options(Traffic Throughput)",
-				"SyncKey" : "String"
+				"Synchronized": "Options(On, Off)"
 			};
 		};
 		
@@ -55,6 +55,22 @@ if (namespace["Frequency"] == null) {
 			
 			var container = anchor_point.get(0);
 			var throughput_data = data["traffic_throughput"];
+			
+			//Check to see if the database is empty for table throughput
+			if(throughput_data == null) {
+				throw "There is no throughput data in the database.";
+			}
+			
+			//Renames start field to x for the purposes of this plugin
+			var first_row = throughput_data[0];
+			if(first_row['start'] != null) {
+				for(var i in throughput_data){
+					var row = throughput_data[i];
+					row['x'] = row['start'];
+					delete row['start'];
+				}
+			}
+			
 			var dataset = new vis.DataSet(throughput_data);
 		  
 			// get data start and end date
@@ -87,10 +103,14 @@ if (namespace["Frequency"] == null) {
 			var graph = new vis.Graph2d(container, dataset, options);
 			anchor_point.data("frequency", graph);
 			
-			if(settings.SyncKey != null && settings.SyncKey != "") {
+			var sync_key = context.set_name + context.set_index;
+			if(settings.Synchronized == "On") {
+				
 				var table = context.collection_name;
+				
 				var synchronizer = getGraphSynchronizer();
-				synchronizer.add_graph(table, settings.SyncKey, graph);
+				synchronizer.add_graph(table, sync_key, graph);
+				
 				graph.on("rangechanged", function(properties){
 					var windowRangeStart = properties.start;
 					var windowRangeEnd = properties.end;
@@ -101,7 +121,7 @@ if (namespace["Frequency"] == null) {
 						var graph = graphs[i];
 						graph.setWindow(windowRangeStart,windowRangeEnd);
 					}
-				}.bind({"key" : settings.SyncKey}));
+				}.bind({"key" : sync_key}));
 			}
 		};
 	}

@@ -1,0 +1,20 @@
+[
+	{"manualscreen_id" : 0,
+	"content" : " ",
+	"type" : "point",
+	"classname" : "imgPoint",
+	"title" : "\/root\/ecel\/plugins\/collectors\/manualscreenshot\/raw\/A screenshot of test.com-20170830-161122.png",
+	"comment" : "A screenshot of test.com",
+	"start" : "2017-08-30T22:11:22"
+	},
+
+	{"manualscreen_id" : 1,
+	"content" : " ",
+	"type" : "point",
+	"classname" : "imgPoint",
+	"title" : "\/root\/ecel\/plugins\/collectors\/manualscreenshot\/raw\/A screenshot of speedtest.net-20170830-161144.png",
+	"comment" : "A screenshot of speedtest.net",
+	"start" : "2017-08-30T22:11:44"
+	}
+
+]
