@@ -97,6 +97,7 @@ if (namespace["Timeline"] == null) {
 				database_table.forEach(function(obj){ 
 					obj['group'] = (i + "");
 					obj['m_id'] = obj["_id"]["$oid"];
+					obj['type'] = "box";
 				});
 				items.add(database_table);
 			}
