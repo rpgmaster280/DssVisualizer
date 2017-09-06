@@ -63,7 +63,8 @@ if (namespace["Timeline"] == null) {
 		this.getSettings = function() {
 			return {
 				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic, Snoopy)",
-				"Synchronized": "Options(On, Off)"
+				"Synchronized": "Options(On, Off)",
+				"PointStyle" : "Options(box, point)"
 			};
 		};
 		
@@ -97,7 +98,7 @@ if (namespace["Timeline"] == null) {
 				database_table.forEach(function(obj){ 
 					obj['group'] = (i + "");
 					obj['m_id'] = obj["_id"]["$oid"];
-					obj['type'] = "box";
+					obj['type'] = settings.PointStyle;
 				});
 				items.add(database_table);
 			}

@@ -17,6 +17,7 @@
 
 from dss_requests.IRequest import IRequest
 from pymongo.mongo_client import MongoClient
+import re
 
 dss_success = """{
     "message": "Database added successfully.",
@@ -28,7 +29,8 @@ class AddDatabaseRequest(IRequest):
         super().__init__("DSS_ADD_DB", connection)
         
     def validateInput(self):
-        return True
+        user_input = self.getUserInput()
+        return re.match("^[a-zA-Z][a-zA-Z0-9_]*$", user_input["db_name"])
     
     def processRequest(self, server_state_info):
         user_input = self.getUserInput()

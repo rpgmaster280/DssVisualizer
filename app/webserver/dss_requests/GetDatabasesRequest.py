@@ -29,11 +29,19 @@ class GetDatabasesRequest(IRequest):
     def processRequest(self, server_state_info):
         
         client = MongoClient("localhost", 27017)
+        databases = client.database_names()
+        
+        # Remove off limits databases
+        i = 0
+        for db in databases:
+            if db == "local":
+                del databases[i]
+            i = i + 1
         
         response = {
             "message" : "Databases retrieved successfully",
             "success" : True,
-            "data" : client.database_names()
+            "data" : databases
         }
         
         return json.dumps(response)
