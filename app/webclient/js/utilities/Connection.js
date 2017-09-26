@@ -71,12 +71,13 @@ function GetAllDatabasesRequest() {
 	Request.call(this, "DSS_LS_DB", null);
 }
 
-function FileUploadRequest(db_name, tech_name, event_name, data) {
+function FileUploadRequest(db_name, tech_name, event_name, data, is_archive) {
 	var fields = {
 		"db_name" : db_name,
 		"tech_name" : tech_name,
 		"event_name" : event_name,
-		"event_data" : data
+		"event_data" : data,
+		"is_archive" : is_archive
 	};
 	Request.call(this, "DSS_UPLOAD_FILE", fields);
 }
@@ -178,7 +179,7 @@ function Connection() {
 	 * @returns True if the request was asynchronous, the request object if the
 	 * 	request is synchronous.
 	 */
-	this.sendRequest = function(request, isAsync, isRaw = false) {
+	this.sendRequest = function(request, isAsync, isRaw = false, upload_callback=null, download_callback=null) {
 		var type = isRaw ? request.type : request.getType();
 		var parent = this;
 		var returned_data = isAsync ? true : null;
@@ -218,7 +219,30 @@ function Connection() {
 	        async: isAsync,
 	        data: param_data,
 	        dataType: "json",
-	        method: "POST"
+	        method: "POST",
+	        xhr: function() {
+	        	var xhr = new window.XMLHttpRequest();
+	        	var upload_callback = this.upload_callback;
+	        	var download_callback = this.download_callback;
+	        	
+	        	//Upload event handler
+	        	xhr.upload.addEventListener("progress", function(evt){
+	        		if(evt.lengthComputable && upload_callback != null) {
+	        			var percentComplete = evt.loaded / evt.total;
+	        			upload_callback(percentComplete);
+	        		}
+	        	}, false);
+	        	
+	        	//Download event handler
+	        	xhr.addEventListener("progress", function(evt){
+	        		if(evt.lengthComputable && download_callback != null) {
+	        			var percentComplete = evt.loaded / evt.total;
+	        			download_callback(percentComplete);
+	        		}
+	        	}, false);
+	        	
+	        	return xhr;
+	        }.bind({"upload_callback": upload_callback, "download_callback": download_callback})
 	    });
 
         return returned_data;

@@ -18,8 +18,23 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 
 var can_enable = false;
 var file_contents = {};
+var is_archive = false;
 
 $("document").ready(function(){
+	
+	$("#cancelButton").click(function(){
+		if($("#cancelButton").hasClass("disabled")) {
+			return;
+		}
+		$("#dssModal").modal('hide');
+	});
+	
+	$("#xButton").click(function(){
+		if($("#xButton").hasClass("disabled")) {
+			return;
+		}
+		$("#dssModal").modal('hide');
+	});
 	
 	var conn = getDssConnectionSingleton();
 	conn.registerHandler(new ResponseHandler("DSS_LS_DB", true, function(response) {
@@ -62,23 +77,67 @@ $("document").ready(function(){
 				settings_as_map["db_name"],
 				settings_as_map["tech_name"],
 				settings_as_map["event_name"],
-				btoa(file_contents)
+				btoa(file_contents),
+				is_archive
 		);
 		
-		conn.sendRequest(request, true);
-		$("#dssModal").modal('hide');
+		var upload_func = function(percent){
+			
+			//Update progress bar with upload percentage
+			var width = percent * 100;
+			$(".progress-bar-info").css("width", width + "%").text(width.toFixed(2) + "%");
+			
+			if(percent === 1) {
+				$(".progress-bar-info").text("Server is processing archive. Please wait...");
+			}
+		};
+		
+		var download_func = function(percent){
+			
+			//Close modal when everything is done
+			if(percent === 1) {
+				$("#dssModal").modal('hide');
+			}
+			
+		};
+		
+		$("#submitButton").addClass("disabled");
+		$("#cancelButton").addClass("disabled");
+		$("#xButton").addClass("disabled");
+		$("#fileInput").attr("disabled", true);
+		
+		conn.sendRequest(request, true, false, upload_func, download_func);
+		
 	});
 	
 	var fileInput = document.getElementById('fileInput');
 
 	fileInput.addEventListener('change', function(e) {
 		var file = fileInput.files[0];
-
+		
+		var tokenized_file = file.name.split(".");
+		var extension = tokenized_file[tokenized_file.length - 1];
+		is_archive = extension.toUpperCase() == "ZIP";
+		var valid_extension = extension.toUpperCase() == "JSON" || is_archive;
+		
+		if(tokenized_file.length < 2 || !valid_extension) {
+			$("#fileFeedback").text("Invalid file extension.");
+			if(can_enable) $("#submitButton").removeClass("disabled");
+			return;
+		}
+		
 		var reader = new FileReader();
 
 		reader.onload = function(e) {
 			
 			var obj = null;
+			
+			if(is_archive) {
+				$("#fileFeedback").text("ZIP file selected.");
+				if(can_enable) $("#submitButton").removeClass("disabled");
+				file_contents = reader.result;
+				return;
+			}
 			
 			try {
 				obj = JSON.parse(reader.result);
@@ -117,7 +176,11 @@ $("document").ready(function(){
 			file_contents = reader.result;
 		};
 
-		reader.readAsText(file);
+		if(is_archive) {
+			reader.readAsBinaryString(file);
+		} else {
+			reader.readAsText(file);
+		}
 		
 	});
 });
