@@ -68,11 +68,43 @@ $("document").ready(function(){
 		}
 		
 		var viz = new Visualization(settings_as_map.viz_type, settings_as_map);
+		
 		var manager = getCollectionManager();
 		var collection = manager.getCurrent();
 		var set = collection.get(current_set_index);
-		set.add(viz);
-		manager.update();
+		var plugin_name = viz.settings.viz_type;
+		var renderer = pluginManager.get(plugin_name);
+		var viz_dom = $("<div>").css("clear", "both");
+		var error_text = null;
+		
+		var context = {
+				"collection_name" : collection.name,
+				"database_name" : set.db_name,
+				"set_name" : set.name,
+				"set_index" : current_set_index,
+				"viz_name" : plugin_name,
+				"viz_index" : 0 //Hardcoded since viz hasn't been added to set yet
+		};
+		
+		//This block of code will attempt to execute the renderer plugin in
+		//the background. If it succeeds, the visualization will be added to
+		//the system. Otherwise, an error alert will be displayed.
+		if(!renderer.enabled) {
+			error_text = "Selected renderer is not enabled in the system";
+		} else {
+			try {
+				renderer.run(viz_dom, set.data, viz.settings, context);
+			} catch(e) {
+				error_text = "Error running plugin " + plugin_name + " | " + e;
+			}
+		}
+		
+		if(error_text == null) {
+			set.add(viz);
+			manager.update();
+		} else {
+			new AlertManager().generateAlert("alert-danger", "Error adding visualization: " + error_text);
+		}
 		
 		$("#dssModal").modal('hide');
 	});
