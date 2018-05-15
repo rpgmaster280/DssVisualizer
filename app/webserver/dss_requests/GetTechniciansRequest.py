@@ -20,8 +20,8 @@ from pymongo.mongo_client import MongoClient
 import json
 
 class GetTechniciansRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_GET_TECHS", connection)
+    def __init__(self):
+        super().__init__("DSS_GET_TECHS")
         
     def validateInput(self):
         return True

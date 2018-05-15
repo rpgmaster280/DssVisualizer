@@ -23,8 +23,8 @@ import json
 from bson import json_util
 
 class GetDataRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_GET_DATA", connection)
+    def __init__(self):
+        super().__init__("DSS_GET_DATA")
         
     def to_datetime(self, raw_date):
         date_tokens = raw_date.split("-")

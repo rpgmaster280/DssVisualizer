@@ -48,7 +48,7 @@ def loadDssRequests():
     for request_item in request_list:
         req_mod = importlib.import_module("dss_requests." + request_item)
         target_class = getattr(req_mod, request_item)
-        class_instance = target_class(None)
+        class_instance = target_class()
         request_map[class_instance.getRequestLabel()] = class_instance
     return request_map
 

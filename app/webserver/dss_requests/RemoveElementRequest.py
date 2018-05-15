@@ -26,8 +26,8 @@ dss_success = """{
 }"""
 
 class RemoveElementRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_REMOVE_ELEMENT", connection)
+    def __init__(self):
+        super().__init__("DSS_REMOVE_ELEMENT")
         
     def validateInput(self):
         return True

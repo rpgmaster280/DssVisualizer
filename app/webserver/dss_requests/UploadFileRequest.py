@@ -30,8 +30,8 @@ dss_success = """{
     "data": []
 }"""
 class UploadFileRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_UPLOAD_FILE", connection)
+    def __init__(self):
+        super().__init__("DSS_UPLOAD_FILE")
         
     def getTable(self, event_data):
         first_row = event_data[0]

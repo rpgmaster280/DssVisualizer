@@ -20,8 +20,8 @@ from pymongo.mongo_client import MongoClient
 import json
 
 class GetEventsRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_GET_EVENTS", connection)
+    def __init__(self):
+        super().__init__("DSS_GET_EVENTS")
         
     def validateInput(self):
         return True

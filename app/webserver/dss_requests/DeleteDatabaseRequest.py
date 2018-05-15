@@ -25,8 +25,8 @@ success = """{
 }"""
 
 class DeleteDatabaseRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_RM_DB", connection)
+    def __init__(self):
+        super().__init__("DSS_RM_DB")
         
     def validateInput(self):
         user_input = self.getUserInput()

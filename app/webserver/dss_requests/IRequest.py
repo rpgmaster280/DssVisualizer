@@ -16,8 +16,7 @@
 # along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 
 class IRequest:
-    def __init__(self, request_label, db_connection):
-        self.db_connection = db_connection
+    def __init__(self, request_label):
         self.request_label = request_label
     
     def getRequestLabel(self):
@@ -34,7 +33,4 @@ class IRequest:
     
     def processRequest(self, server_state_info):
         raise RuntimeWarning("Method not implemented")
-    
-    def changeConnection(self, new_connection):
-        self.db_connection = new_connection
 

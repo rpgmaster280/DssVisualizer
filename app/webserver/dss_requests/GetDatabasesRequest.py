@@ -20,8 +20,8 @@ import json
 from pymongo.mongo_client import MongoClient
 
 class GetDatabasesRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_LS_DB", connection)
+    def __init__(self):
+        super().__init__("DSS_LS_DB")
         
     def validateInput(self):
         return True

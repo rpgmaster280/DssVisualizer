@@ -46,7 +46,6 @@ function Plugin(class_name, path) {
 				this.isRunning = true;
 				$.holdReady(false);
 			};
-			
 			$.getScript(this.path).done(script_handler.bind(this));
 		}
 	};

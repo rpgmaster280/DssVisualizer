@@ -22,8 +22,8 @@ from datetime import datetime
 from bson import json_util
 
 class AddAnnotationRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_ADD_ANNOTATION", connection)
+    def __init__(self):
+        super().__init__("DSS_ADD_ANNOTATION")
         
     def validateInput(self):
         return True

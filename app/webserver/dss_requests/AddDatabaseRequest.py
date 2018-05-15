@@ -25,8 +25,8 @@ dss_success = """{
     "data": []
 }"""
 class AddDatabaseRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_ADD_DB", connection)
+    def __init__(self):
+        super().__init__("DSS_ADD_DB")
         
     def validateInput(self):
         user_input = self.getUserInput()

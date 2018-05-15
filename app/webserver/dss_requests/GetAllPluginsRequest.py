@@ -20,8 +20,8 @@ import re
 import json
 
 class GetAllPluginsRequest(IRequest):
-    def __init__(self, connection):
-        super().__init__("DSS_GET_PLUGINS", connection)
+    def __init__(self):
+        super().__init__("DSS_GET_PLUGINS")
         
     def validateInput(self):
         return True
