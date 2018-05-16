@@ -63,11 +63,12 @@ if (namespace["Timeline"] == null) {
 		this.getSettings = function() {
 			return {
 				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic, Snoopy)",
-				"Synchronized": "Options(On, Off)",
 				"PointStyle" : "Options(box, point)",
 				"TimeAxis" : "Options(Off, Major, Minor, Both)"
 			};
 		};
+		
+		this.isSynchronized = false;
 		
 		this.createInstance = function(anchor_point, data, settings, context) {
 			
@@ -223,7 +224,7 @@ if (namespace["Timeline"] == null) {
 			anchor_point.data("timeline", graph);
 			
 			var sync_key = context.set_name + context.set_index;
-			if(settings.Synchronized == "On") {
+			if(this.isSynchronized) {
 				
 				var table = context.collection_name;
 				

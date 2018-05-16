@@ -16,13 +16,8 @@ You should have received a copy of the GNU General Public License
 along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-function Visualization(viz_type, settings) {
-	this.viz_type = viz_type;
-	this.settings = settings;
-}
-
 var counterz = 0;
-function Set(name, db_name, event_name, tech_names, start_date, end_date) {
+function Visualization(name, db_name, event_name, tech_names, start_date, end_date, viz_type, settings) {
 	
 	this.name = name;
 	this.db_name = db_name;
@@ -32,18 +27,15 @@ function Set(name, db_name, event_name, tech_names, start_date, end_date) {
 	this.end_date = end_date;
 	this.data = {};
 	
-	this.visualizations = [];
+	this.viz_type = viz_type;
+	this.settings = settings;
 	
-	this.add = function(visualization) {
-		this.visualizations.push(visualization);
+	this.getType = function() {
+		return this.viz_type;
 	};
 	
-	this.getAll = function(){
-		return this.visualizations;
-	};
-	
-	this.del = function(index) {
-		delete this.visualizations[index];
+	this.getSettings = function() {
+		return this.settings;
 	};
 	
 	this.loadData = function() {
@@ -79,37 +71,37 @@ function Set(name, db_name, event_name, tech_names, start_date, end_date) {
 
 function Collection(name){
 	this.name = name;
-	this.sets = [];
+	this.visualizations = [];
 	
-	this.add = function(set) {
-		this.sets.push(set);
+	this.add = function(viz) {
+		this.visualizations.push(viz);
 	}
 	
-	this.update = function(index, set) {
-		this.sets[index] = set;
+	this.update = function(index, viz) {
+		this.visualizations[index] = viz;
 	}
 	
 	this.del = function(index) {
-		delete this.sets[index];
-		var tmp = this.sets;
-		this.sets = [];
+		delete this.visualizations[index];
+		var tmp = this.visualizations;
+		this.visualizations = [];
 		for (var i in tmp) {
 			if(tmp[i] != null) {
-				this.sets.push(tmp[i]);
+				this.visualizations.push(tmp[i]);
 			}
 		}
 	}
 	
 	this.get = function(index) {
-		return this.sets[index];
+		return this.visualizations[index];
 	}
 	
 	this.getAll = function() {
-		return this.sets;
+		return this.visualizations;
 	};
 	
 	this.size = function() {
-		return this.sets.length;
+		return this.visualizations.length;
 	}
 }
 
@@ -179,21 +171,21 @@ function CollectionManager(){
 			var current_collection_data = json.collections[i];
 			var current_collection = new Collection(current_collection_data.name);
 			
-			for(var j in current_collection_data.sets){
-				var current_set_data = current_collection_data.sets[j];
-				var current_set = new Set(
-					current_set_data.name,
-					current_set_data.db_name,
-					current_set_data.event_name,
-					current_set_data.tech_names,
-					current_set_data.start_date,
-					current_set_data.end_date
+			for(var j in current_collection_data.visualizations){
+				var current_viz_data = current_collection_data.visualizations[j];
+				var current_viz = new Visualization(
+					current_viz_data.name,
+					current_viz_data.db_name,
+					current_viz_data.event_name,
+					current_viz_data.tech_names,
+					current_viz_data.start_date,
+					current_viz_data.end_date,
+					current_viz_data.viz_type,
+					current_viz_data.settings
 				);
 				
-				current_set.visualizations = current_set_data.visualizations;
-				current_collection.add(current_set);
-				
-				promise_array.push(current_set.loadData());
+				current_collection.add(current_viz);
+				promise_array.push(current_viz.loadData());
 			}
 			this.add(current_collection);
 		}
@@ -277,18 +269,19 @@ function CollectionManager(){
 			var old_collection = this.collections[i];
 			var new_collection = new Collection(old_collection.name);
 			
-			for(var j in old_collection.sets) {
-				var old_set = old_collection.sets[j];
-				var new_set = new Set(
-						old_set.name,
-						old_set.db_name,
-						old_set.event_name,
-						old_set.tech_names,
-						old_set.start_date,
-						old_set.end_date
+			for(var j in old_collection.visualizations) {
+				var old_viz = old_collection.visualizations[j];
+				var new_viz = new Visualization(
+						old_viz.name,
+						old_viz.db_name,
+						old_viz.event_name,
+						old_viz.tech_names,
+						old_viz.start_date,
+						old_viz.end_date,
+						old_viz.viz_type,
+						old_viz.settings
 				);
-				new_set.visualizations = old_set.visualizations;
-				new_collection.add(new_set);
+				new_collection.add(new_viz);
 			}
 			
 			cloned_manager.add(new_collection);

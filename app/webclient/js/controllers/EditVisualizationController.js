@@ -33,6 +33,11 @@ $("document").ready(function(){
 	}
 	$("#viz_type").chosen({width: "100%"});
 	
+	//Get selected visualization. It is later bound to the get databases request.
+	let manager = getCollectionManager();
+	let collection = manager.getCurrent();
+	let currentViz = collection.get(localStorage.getItem("viz_index"));
+	
 	let conn = getDssConnectionSingleton();
 	let request = new GetAllDatabasesRequest();
 	conn.registerHandler(new ResponseHandler(request.getType(), true, function(response) {
@@ -48,14 +53,14 @@ $("document").ready(function(){
 			db_names = formBuilder.generateSelectField("db_name", ["No databases present in the system"]);
 			$("#submitButton").addClass("disabled");
 		} else {
-			db_names = formBuilder.generateSelectField("db_name", databases);
+			db_names = formBuilder.generateSelectField("db_name", databases, false, [this.viz.db_name]);
 		}
 		$("#db_options").html("");
 		$("#db_options").append(db_names);
 		db_names.chosen({width : "100%"});
 		
 		//Add event handler for renderer selection (generates renderer specific settings)
-		$("#viz_type").change({"databases" : databases}, function(e){
+		$("#viz_type").change({"databases" : databases, "viz" : this.viz}, function(e){
 			let current_option = $("#viz_type option:selected");
 			
 			$("#viz_specific").html("");
@@ -71,12 +76,23 @@ $("document").ready(function(){
 			let plugin = pluginManager.get(current_option.val());
 			let settings = plugin.getSettings();
 			
-			let form_builder = new FormBuilder(settings);
+			let form_builder = new FormBuilder(settings, e.data.viz.settings);
 			let new_form = form_builder.constructForm();
 			$("#viz_specific").append(new_form);
 		});
 		
-	}));
+		//Populate form based on viz settings
+		$("#viz_name").val(this.viz.name);
+		$("#start_date").val(this.viz.start_date);
+		$("#end_date").val(this.viz.end_date);
+		$("#event_name").val(this.viz.event_name);
+		$("#tech_name").val(this.viz.tech_names);
+		
+		//Select proper visualization type now that event handler has been added
+		$("#viz_type").val(this.viz.viz_type).trigger('chosen:updated');
+		$("#viz_type").change();
+		
+	}.bind({"viz" : currentViz})));
 	conn.sendRequest(request, true);
 	
 	$("#submitButton").click(function(){
@@ -117,7 +133,7 @@ $("document").ready(function(){
 		);
 		let manager = getCollectionManager();
 		let collection = manager.getCurrent();
-		collection.add(viz);
+		collection.update(localStorage.getItem("viz_index"), viz);
 		
 		//Update GUI upon successfully loading visualization data
 		viz.loadData().then(function(fufilled){ manager.update(); });

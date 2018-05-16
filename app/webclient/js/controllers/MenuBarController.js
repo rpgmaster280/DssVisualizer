@@ -18,7 +18,11 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 
 var _next_collection = 1;
 function addNewCollection() {
-	getCollectionManager().add(new Collection("NewCollection " + _next_collection));
+	let manager = getCollectionManager();
+	while(manager.get("NewCollection " + _next_collection) != null) {
+		_next_collection++;
+	}
+	manager.add(new Collection("NewCollection " + _next_collection));
 	_next_collection++;
 }
 
@@ -76,15 +80,15 @@ $("document").ready(function(){
 		
 	});
 	
-	$("#add_set").click(function(){
-		$("#contents-dss-modal").load("views/AddVisualizationSetView.html");
+	$("#add_viz").click(function(){
+		$("#contents-dss-modal").load("views/AddVisualizationView.html");
 	});
 	
-	$("#expand_set").click(function(){
+	$("#expand_viz").click(function(){
 		$("#view_placeholder .collapse").collapse('show');
 	});
 	
-	$("#collapse_set").click(function(){
+	$("#collapse_viz").click(function(){
 		$("#view_placeholder .collapse").collapse('hide');
 	});
 	

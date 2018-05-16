@@ -46,12 +46,12 @@ if (namespace["Frequency"] == null) {
 		//Settings currently ignored because the graph currently only supports one table
 		this.getSettings = function() {
 			return {
-				"Sources": "Options(Traffic Throughput)",
-				"Synchronized": "Options(On, Off)",
 				"TimeAxis" : "Options(Off, Major, Minor, Both)",
 				"YAxisVisible" : "Options(On, Off)"
 			};
 		};
+		
+		this.isSynchronized = false;
 		
 		this.createInstance = function(anchor_point, data, settings, context) {
 			
@@ -110,7 +110,7 @@ if (namespace["Frequency"] == null) {
 			anchor_point.data("frequency", graph);
 			
 			var sync_key = context.set_name + context.set_index;
-			if(settings.Synchronized == "On") {
+			if(this.isSynchronized) {
 				
 				var table = context.collection_name;
 				

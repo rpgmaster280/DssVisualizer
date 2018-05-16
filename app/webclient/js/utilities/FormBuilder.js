@@ -16,18 +16,25 @@ You should have received a copy of the GNU General Public License
 along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
-function FormBuilder(settings){
+function FormBuilder(settings, defaults={}){
 	this.settings = settings;
+	this.defaults = defaults;
 	
-	this.generateStringField = function(id){
-		return $("<input type='text' class='form-control'>").attr('id', id).attr('name', id);
+	this.generateStringField = function(id, value=null){
+		let elem = $("<input type='text' class='form-control'>").attr('id', id).attr('name', id);
+		if(value != null)
+			elem.val(value);
+		return elem;
 	};
 	
-	this.generateIntegerField = function(id) {
-		return $("<input type='number' class='form-control'>").attr('id', id).attr('name', id);
+	this.generateIntegerField = function(id, value=null) {
+		let elem = $("<input type='number' class='form-control'>").attr('id', id).attr('name', id);
+		if(value != null)
+			elem.val(value);
+		return elem;
 	};
 	
-	this.generateSelectField = function(id, options, isMultiple = false) {
+	this.generateSelectField = function(id, options, isMultiple = false, selected_options=null) {
 		var input = null;
 		
 		if(isMultiple) {
@@ -39,29 +46,23 @@ function FormBuilder(settings){
 		for(var i in options) {
 			var option = options[i];
 			var next_option = $("<option>").val(option).text(option);
+			if(selected_options != null && (selected_options.indexOf(option) > -1)) {
+				next_option.attr("selected", "");
+			}
 			input.append(next_option);
 		}
 		
 		return input;
-	};
-
-	//Broken. Need to fix this.	
-	this.generateCheckboxField = function(id) {
-		var outer_div = $("<div>").addClass("checkbox");
-		var inner_label = $("<label>");
-		var input = $("<input>").attr("id", id).attr("type", "checkbox").attr("name", id).text(id);
-		
-		outer_div.append(inner_label);
-		inner_label.append(input);
-		return outer_div;
 	};
 	
 	this.constructForm = function(){
 		
 		var form = $("<div>");
 		
-		for(var setting_key in settings) {
-			var setting_value = settings[setting_key];
+		for(var setting_key in this.settings) {
+			var setting_value = this.settings[setting_key];
+			
+			var setting_default = this.defaults[setting_key];
 			
 			var form_group = $("<div class='form-group'>");
 			var label = $("<label>").attr('for', setting_key).text(setting_key);
@@ -69,13 +70,13 @@ function FormBuilder(settings){
 				
 			if(setting_value == "String") {
 				
-				var input = this.generateStringField(setting_key);
+				var input = this.generateStringField(setting_key, setting_default);
 				form_group.append(input);
 				form.append(form_group);
 				
 			} else if (setting_value == "Integer") {
 				
-				var input = this.generateIntegerField(setting_key);
+				var input = this.generateIntegerField(setting_key, setting_default);
 				form_group.append(input);
 				form.append(form_group);
 				
@@ -86,19 +87,11 @@ function FormBuilder(settings){
 				var tokens = str.split(",");
 				
 				var is_multi = setting_value.startsWith("MultiOptions");
-				var input = this.generateSelectField(setting_key, tokens, is_multi);
+				var input = this.generateSelectField(setting_key, tokens, is_multi, setting_default);
 				
 				form_group.append(input);
 				form.append(form_group);
 			
-			//Broken. Need to fix this.
-			} else if (setting_value == "Boolean") {
-				
-				label.css("display", "none");
-				var input = this.generateCheckboxField(setting_key);
-				form_group.append(input);
-				form.append(form_group);
-				
 			} else {
 				//Form option not understood by the system
 			}

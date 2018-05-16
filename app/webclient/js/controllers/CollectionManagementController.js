@@ -20,42 +20,40 @@ var _dom_table = {};
 var _last_collection = null;
 
 function generateNoDatasetMessage(target) {
-	var message = $("<h3 style='text-align: center;'>").text("No datasets have been added to this collection.");
+	var message = $("<h3 style='text-align: center;'>").text("No visualizations have been added to this collection.");
 	target.append(message);
 }
 
 function updateUI(collection){
 	
-	$("<div>").load("views/SetView.html", function(){
+	$("<div>").load("views/VisualizationView.html", function(){
 		
 		$("#view_placeholder").empty();
 		
 		var collection_markup = $("<div>");
 		
-		var sets = collection.getAll();
+		var visualizations = collection.getAll();
 
-		if(sets.length == 0) {
+		if(visualizations.length == 0) {
 			
 			generateNoDatasetMessage(collection_markup);
 			
 		} else {
+			
 			var counter = 0;
-			for(var index in sets) {
+			for(var index in visualizations) {
 				
-				var set = sets[index];
+				var visualization = visualizations[index];
 
 				var template = $(this).first().clone();
 				
-				template.find(".set-title").text(set.name);
+				template.find(".viz-title").text(visualization.name);
 				
-				var new_panel = template.find(".set-target");
-				new_panel.removeClass("set-target");
-				
-				var add_button = template.find(".add-target");
-				add_button.removeClass(".add_target");
+				var new_panel = template.find(".viz-target");
+				new_panel.removeClass("viz-target");
 				
 				var edit_button = template.find(".edit-target");
-				edit_button.removeClass(".edit-target");
+				edit_button.removeClass(".edit_target");
 				
 				var delete_button = template.find(".delete-target");
 				delete_button.removeClass(".delete_target");
@@ -63,106 +61,73 @@ function updateUI(collection){
 				var collapse_button = template.find(".collapse-target");
 				collapse_button.removeClass(".collapse-target");
 				
-				var panel_body = template.find(".set-body-target");
-				panel_body.removeClass("set-body-target");
-				
-				var components = [
-					new_panel,
-					add_button,
-					edit_button,
-					delete_button,
-					collapse_button,
-					panel_body
-				];
+				var panel_body = template.find(".viz-body-target");
+				panel_body.removeClass("viz-body-target");
 				
 				var pluginManager = getPluginManager();
-				var visualizations = set.getAll();
+				var plugin_name = visualization.viz_type;
+				var renderer = pluginManager.get(plugin_name);
+				var viz_dom = $("<div>").css("clear", "both");
 				
-				if(visualizations.length > 0) {
-					panel_body.html("");
-				}
+				var context = {
+						"collection_name" : collection.name,
+						"database_name" : visualization.db_name,
+				};
 				
-				for(var i = 0; i < visualizations.length; i++) {
-					var viz = visualizations[i];
-					var plugin_name = viz.settings.viz_type;
-					var renderer = pluginManager.get(plugin_name);
-					var viz_dom = $("<div>").css("clear", "both");
-					
-					var context = {
-							"collection_name" : collection.name,
-							"database_name" : set.db_name,
-							"set_name" : set.name,
-							"set_index" : index,
-							"viz_name" : plugin_name,
-							"viz_index" : i
-					};
-					
-					var dataset = {
-							"viz_dom" : viz_dom,
-							"data" : set.data,
-							"settings": viz.settings,
-							"context" : context,
-							"panel_body" : panel_body
-					};
-					
-					new Promise(function(resolve, reject){
-			
-						if(!renderer.enabled) {
-							var error_text = "Plugin tried to run but is disabled: " + plugin_name;
+				var dataset = {
+						"viz_dom" : viz_dom,
+						"data" : visualization.data,
+						"settings": visualization.settings,
+						"context" : context,
+						"panel_body" : panel_body
+				};
+				
+				new Promise(function(resolve, reject){
+		
+					if(!renderer.enabled) {
+						var error_text = "Plugin tried to run but is disabled: " + plugin_name;
+						viz_dom.append($("<p>").text(error_text).css("color", "red"));
+						reject(this);
+					} else {
+						try {
+							renderer.run(this.viz_dom, this.data, this.settings, this.context);
+							resolve(this);
+						} catch(e) {
+							var error_text = "Error running plugin " +
+								plugin_name + " | " + e;
 							viz_dom.append($("<p>").text(error_text).css("color", "red"));
 							reject(this);
-						} else {
-							try {
-								renderer.run(this.viz_dom, this.data, this.settings, this.context);
-								resolve(this);
-							} catch(e) {
-								var error_text = "Error running plugin " +
-									plugin_name + " | " + e;
-								viz_dom.append($("<p>").text(error_text).css("color", "red"));
-								reject(this);
-							}
 						}
-						
-						
-					}.bind(dataset)).then(function(fufill){
-						fufill.panel_body.append(fufill.viz_dom);
-					}).catch(function(error){
-						error.panel_body.append(error.viz_dom);
-					});
+					}
 					
-				}
+				}.bind(dataset)).then(function(fufill){
+					fufill.panel_body.append(fufill.viz_dom);
+				}).catch(function(error){
+					error.panel_body.append(error.viz_dom);
+				});
 				
-				panel_body.attr("id", "set-panel" + counter);
+				panel_body.attr("id", "viz-panel" + counter);
 				collapse_button.attr("data-target", "#" + panel_body.attr("id"));
-				counter = counter + 1;
-				
-				add_button.attr("data-toggle", "modal");
-				add_button.attr("data-target", "#dssModal");
-				add_button.click([index], function(e){
-					var set_index = e.data[0];
-					localStorage.setItem("working-set-index", set_index);
-					$("#contents-dss-modal").load("views/AddVisualizationView.html");
-				});
-				
-				edit_button.attr("data-toggle", "modal");
-				edit_button.attr("data-target", "#dssModal");
-				edit_button.click([index], function(e){
-					var set_index = e.data[0];
-					localStorage.setItem("working-set-index", set_index);
-					$("#contents-dss-modal").load("views/EditVisualizationSetView.html");
-				});
 				
 				delete_button.click([index, new_panel], function(e){
-					var set_index = e.data[0];
+					var viz_index = e.data[0];
 					var panel = e.data[1];
 					var manager = getCollectionManager();
 					var current = manager.getCurrent();
-					current.del(set_index);
+					current.del(viz_index);
 					panel.remove();
 					manager.update();
 				});
 				
+				edit_button.click({"index" : index}, function(e){
+					localStorage.setItem("viz_index", e.data.index);
+					$("#contents-dss-modal").load("views/EditVisualizationView.html");
+					$("#dssModal").modal('show');
+				});
+				
 				collection_markup.append(template);
+				
+				counter = counter + 1;
 			}
 		}
 		
@@ -215,6 +180,5 @@ $("document").ready(function(){
 		}
 		
 	}));
-	
-	manager.update();
+
 });

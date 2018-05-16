@@ -18,15 +18,12 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 
 var namespace = getPluginNamespace();
 
-if (namespace["HorizontalRule"] == null) {
-	namespace.HorizontalRule = function HorizontalRule(){
+if (namespace["FrequencyTimeline"] == null) {
+	namespace.FrequencyTimeline = function (){
 		
 		this.loadDependencies = function(){
 			//Nothing to do here
-		};
-		
-		this.getSettings = function() {
-			return {};
+			
 		};
 		
 		this.getType = function(){
@@ -34,16 +31,32 @@ if (namespace["HorizontalRule"] == null) {
 		};
 		
 		this.getDependencies = function(){
-			return "Standalone";
+			return "Visjs, Frequency, Timeline";
 		};
 		
 		this.getDescription = function(){
-			return "Utility for adding horizontal rules to the set.";
+			return "Provides both frequency and timeline views.";
+		};
+		
+		this.getSettings = function() {
+			return {
+				"Sources": "MultiOptions(Clicks, Keypresses, Timed Screenshots, Manual Screenshots, Traffic, Snoopy)",
+				"PointStyle" : "Options(box, point)",
+				"TimeAxis" : "Options(Off, Major, Minor, Both)",
+				"YAxisVisible" : "Options(On, Off)",
+				"Synchronized" : "Options(On, Off)"
+			};
 		};
 		
 		this.createInstance = function(anchor_point, data, settings, context) {
-
-			anchor_point.append($("<hr>"));
+			
+			var freq = new namespace["Frequency"]();
+			var timeline = new namespace["Timeline"]();
+			
+			freq.isSynchronized = timeline.isSynchronized = settings["Synchronized"] == "On"
+			
+			freq.createInstance(anchor_point, data, settings, context);
+			timeline.createInstance(anchor_point, data, settings, context);
 		};
 	};
 }
