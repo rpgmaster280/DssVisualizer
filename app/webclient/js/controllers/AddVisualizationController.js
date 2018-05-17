@@ -120,7 +120,10 @@ $("document").ready(function(){
 		collection.add(viz);
 		
 		//Update GUI upon successfully loading visualization data
-		viz.loadData().then(function(fufilled){ manager.update(); });
+		viz.loadData().then(function(fufilled){ 
+			manager.update();
+			manager.save();
+		});
 		
 		$("#dssModal").modal('hide');
 	});

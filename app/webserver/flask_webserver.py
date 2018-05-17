@@ -27,6 +27,9 @@ import importlib
 #Ensures working directory is where the webserver script is
 os.chdir(sys.path[0])
 
+#Resource cache for faster loading
+resource_cache = {}
+
 #Grabs a list of all requests residing the dss_requests package.
 def getDssRequests():
     reqs = os.listdir("dss_requests")
@@ -130,42 +133,53 @@ def find_browser_files(startPoint):
 
 #Gets standard resources (html, css, js, images, etc) for the browser
 def _get_resource(resource_path):
-    rule = resource_path
-    contents = ""
-    mtype = "plain/text"
     
-    if rule in filelist:
+    content = ""
+    mtype = "text/plain"
+    
+    if resource_path in filelist:
         
-        #Get extension and determine open flags
-        extension = filelist[rule]["extension"]
-        open_flags = 'r'
-        if extension == "png" or extension == "jpeg" or extension == "jpg" or extension == "ttf" or extension == "woff" or extension == "woff2":
-            open_flags = 'rb'
-            
         #Open file and determine MIME type
-        with open(filelist[rule]["absolute_path"], open_flags) as resource:
-            contents = resource.read()    
-            if extension == "html" or extension == "htm" or extension == "php":
-                mtype = "text/html"
-            elif extension == "js":
-                mtype = "text/javascript"
-            elif extension == "css":
-                mtype = "text/css"
-            elif extension == "png":
-                mtype = "image/png"
-            elif extension == "jpg" or extension == "jpeg":
-                mtype = "image/jpeg"
-            elif extension == "ttf":
-                mtype = "image/ttf"
-            elif extension == "woff":
-                mtype = "image/woff"
-            elif extension == "woff2":
-                mtype = "image/woff2"
-            else:
-                mtype = "plain/text"
+        if(not (resource_path in resource_cache)):
+            
+            #Get extension and determine open flags
+            extension = filelist[resource_path]["extension"]
+            open_flags = 'r'
+            if extension == "png" or extension == "jpeg" or extension == "jpg" or extension == "ttf" or \
+                    extension == "woff" or extension == "woff2" or extension == "ico":
+                open_flags = 'rb'
+            
+            with open(filelist[resource_path]["absolute_path"], open_flags) as resource:
+                content = resource.read()    
+                if extension == "html" or extension == "htm" or extension == "php":
+                    mtype = "text/html"
+                elif extension == "js":
+                    mtype = "text/javascript"
+                elif extension == "css":
+                    mtype = "text/css"
+                elif extension == "png":
+                    mtype = "image/png"
+                elif extension == "jpg" or extension == "jpeg":
+                    mtype = "image/jpeg"
+                elif extension == "ttf":
+                    mtype = "image/ttf"
+                elif extension == "woff":
+                    mtype = "image/woff"
+                elif extension == "woff2":
+                    mtype = "image/woff2"
+                elif extension == "ico":
+                    mtype = "image/x-icon"
+                else:
+                    mtype = "plain/text"
+                resource_cache[resource_path] = {
+                    "mimetype" : mtype,
+                    "content" : content
+                }
     
-    #Return a response
-    return Response(contents, mimetype=mtype)
+        content = resource_cache[resource_path]["content"]
+        mtype = resource_cache[resource_path]["mimetype"]
+        
+    return Response(content, mimetype=mtype)
     
 def get_resource():
     rule = flask_request.url_rule.rule

@@ -190,7 +190,7 @@ function CollectionManager(){
 			this.add(current_collection);
 		}
 		
-		Promise.all(promise_array).then(function(allData){
+		return Promise.all(promise_array).then(function(allData){
 			getCollectionManager().set(json.active_collection);
 		});
 	};
@@ -292,11 +292,6 @@ function CollectionManager(){
 }
 
 _collectionManager = new CollectionManager();
-_collectionManager.registerHandler(new DssHandler("update", function(collection){
-	_collectionManager.save();
-}));
-
-
 function getCollectionManager() {
 	return _collectionManager;
 }

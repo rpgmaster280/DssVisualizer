@@ -17,14 +17,6 @@ along with DssVisualizer.  If not, see <http://www.gnu.org/licenses/>.
 */
 
 var _next_collection = 1;
-function addNewCollection() {
-	let manager = getCollectionManager();
-	while(manager.get("NewCollection " + _next_collection) != null) {
-		_next_collection++;
-	}
-	manager.add(new Collection("NewCollection " + _next_collection));
-	_next_collection++;
-}
 
 $("document").ready(function(){
     
@@ -41,7 +33,13 @@ $("document").ready(function(){
 	});
 	
 	$("#new_collection").click(function(){
-		addNewCollection();
+		let manager = getCollectionManager();
+		while(manager.get("NewCollection " + _next_collection) != null) {
+			_next_collection++;
+		}
+		manager.add(new Collection("NewCollection " + _next_collection));
+		manager.save();
+		_next_collection++;
 	});
 	
 	$("#delete_collection").click(function(){
@@ -52,6 +50,7 @@ $("document").ready(function(){
 			alert("Visualizer must have at least 1 collection.");
 		} else {
 			manager.del(name);
+			manager.save();
 		}
 	});
 	
@@ -74,6 +73,7 @@ $("document").ready(function(){
 					manager.add(new_collection);
 					manager.set(new_name);
 					manager.del(old_name);
+					manager.save();
 				}
 			}
 		});
@@ -94,6 +94,7 @@ $("document").ready(function(){
 	
 	$("#reset_workspace").click(function(){
 		getCollectionManager().reset();
+		getCollectionManager().save();
 	});
 	
 	$("#save_workspace").click(function(){
@@ -124,8 +125,10 @@ $("document").ready(function(){
 				return;
 			}
 			
-			getCollectionManager().loadFromJSON(obj);
-			getCollectionManager().save();
+			
+			getCollectionManager().loadFromJSON(obj).then(function(){
+				getCollectionManager().save();
+			});
 		};
 
 		reader.readAsText(file);

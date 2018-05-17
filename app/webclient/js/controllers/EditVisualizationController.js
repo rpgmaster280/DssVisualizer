@@ -136,7 +136,10 @@ $("document").ready(function(){
 		collection.update(localStorage.getItem("viz_index"), viz);
 		
 		//Update GUI upon successfully loading visualization data
-		viz.loadData().then(function(fufilled){ manager.update(); });
+		viz.loadData().then(function(fufilled){ 
+			manager.update(); 
+			manager.save();
+		});
 		
 		$("#dssModal").modal('hide');
 	});

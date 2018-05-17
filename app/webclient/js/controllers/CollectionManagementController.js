@@ -117,6 +117,7 @@ function updateUI(collection){
 					current.del(viz_index);
 					panel.remove();
 					manager.update();
+					manager.save();
 				});
 				
 				edit_button.click({"index" : index}, function(e){
@@ -181,4 +182,5 @@ $("document").ready(function(){
 		
 	}));
 
+	manager.update();
 });
