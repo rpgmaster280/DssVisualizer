@@ -106,7 +106,7 @@ def index_request_handler():
 def find_browser_files(startPoint):
     path_len = len(startPoint)
     resource_map = {}
-    for root, subdirs, files in os.walk(startPoint):
+    for root, _ , files in os.walk(startPoint):
         for filename in files:
             #Absolute path of the file
             file_loc = root + "/" + filename
@@ -146,9 +146,11 @@ def _get_resource(resource_path):
             extension = filelist[resource_path]["extension"]
             open_flags = 'r'
             if extension == "png" or extension == "jpeg" or extension == "jpg" or extension == "ttf" or \
-                    extension == "woff" or extension == "woff2" or extension == "ico":
+                    extension == "woff" or extension == "woff2" or extension == "ico" or extension == "eot" or \
+                    extension == "gif":
                 open_flags = 'rb'
-            
+    
+            #Open file and cache content
             with open(filelist[resource_path]["absolute_path"], open_flags) as resource:
                 content = resource.read()    
                 if extension == "html" or extension == "htm" or extension == "php":
@@ -167,6 +169,8 @@ def _get_resource(resource_path):
                     mtype = "image/woff"
                 elif extension == "woff2":
                     mtype = "image/woff2"
+                elif extension == "gif":
+                    mtype = "image/gif"
                 elif extension == "ico":
                     mtype = "image/x-icon"
                 else:
